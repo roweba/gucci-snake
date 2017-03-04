@@ -34,11 +34,14 @@ def start():
 def move():
     data = bottle.request.json
 
+	print(data)
+	
     # TODO: Do things with data
-    directions = ['up', 'down', 'left', 'right']
+    #directions = ['up', 'down', 'left', 'right']
+	direction = 'up'
 
     return {
-        'move': random.choice(directions),
+        'move': direction,
         'taunt': 'battlesnake-python!'
     }
 
