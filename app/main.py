@@ -37,6 +37,8 @@ def move():
     # TODO: Do things with data
     directions = ['up', 'down', 'left', 'right']
     final_dir = 2
+    if (len(data.food == 5)
+        final_dir = 2
 
     return {
         #'move': random.choice(directions),
