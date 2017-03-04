@@ -25,7 +25,8 @@ def start():
     return {
         'color': '#990099',
         'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
-        'head_url': head_url,
+        'head_type': 'fang',
+		'tail_type': 'regular',
         'name': 'battlesnake-python'
     }
 
@@ -40,6 +41,8 @@ def move():
     #if len(data['food'][0][0]) == 5:
     if len(data['food']) == 5:
         final_dir = 1
+
+    
 
     return {
         #'move': random.choice(directions),
