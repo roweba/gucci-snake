@@ -36,11 +36,11 @@ def move():
 
     # TODO: Do things with data
     directions = ['up', 'down', 'left', 'right']
-	final_dir = 2
+	#final_dir = 2
 
     return {
         #'move': random.choice(directions),
-		'move': directions[final_dir],
+		'move': directions[final_dir]
         'taunt': 'WELP!'
     }
 
