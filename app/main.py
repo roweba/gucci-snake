@@ -41,18 +41,22 @@ def start():
         'name': 'gucci snake'
     }
 
+#how far we are from a given destination
 def h(cur, dest):
 	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
-	
+
+#find which direction we want to go to get to the given destination
 def aStar(board, head, dest):
-	open = []
-	close = []
-	out = ''
-	succ = []
+	open = [] #things to check
+	close = [] #things that have been checked
+	out = '' #the direction to go
+	succ = [] #the list of successors
 	
-	heapq.heappush(open, (h(head, dest), head, 0))
-	while(open):
-		cur = heappop(open)
+	heapq.heappush(open, (h(head, dest), head, 0))#push where we are to start off
+	while(open):#while we have things to check
+		cur = heappop(open)#pop the best thing from the priority queue
+		
+		#set our direction, Joss has a feeling this will need debugging, talk to Joss about it
 		if (cur[1][0] == head[0]+1 and cur[1][1] == head[1]):
 			out = 'right'
 		elif (cur[1][0] == head[0]-1 and cur[1][1] == head[1]):
@@ -62,9 +66,11 @@ def aStar(board, head, dest):
 		elif (cur[1][0] == head[0] and cur[1][1] == head[1]-1):
 			out = 'up'
 			
+		#if we find our destination return our initial direction
 		if (cur[1] == dest):
 			return out
 
+		#add safe tiles around the current tile to the list of successors
 		if (board[cur[1][0]+1][cur[1][1]] > 0):
 			succ.append([cur[1][0]+1, cur[1][1])
 		if (board[cur[1][0]-1][cur[1][1]] > 0):
