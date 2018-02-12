@@ -50,26 +50,33 @@ def aStar(board, head, dest):
 	out = ''
 	succ = []
 	
-	heapq.heappush(open, ((h(head, dest)), head))
+	heapq.heappush(open, (h(head, dest), head, 0))
 	while(open):
 		cur = heappop(open)
-		if (cur[0] == head[0]+1 and cur[1] == head[1]):
+		if (cur[1][0] == head[0]+1 and cur[1][1] == head[1]):
 			out = 'right'
-		elif (cur[0] == head[0]-1 and cur[1] == head[1]):
+		elif (cur[1][0] == head[0]-1 and cur[1][1] == head[1]):
 			out = 'left'
-		elif (cur[0] == head[0] and cur[1] == head[1]+1):
+		elif (cur[1][0] == head[0] and cur[1][1] == head[1]+1):
 			out = 'down'
-		elif (cur[0] == head[0] and cur[1] == head[1]-1):
+		elif (cur[1][0] == head[0] and cur[1][1] == head[1]-1):
 			out = 'up'
 			
-		if (cur == dest):
+		if (cur[1] == dest):
 			return out
 
-		succ	
+		if (board[cur[1][0]+1][cur[1][1]] > 0):
+			succ.append([cur[1][0]+1, cur[1][1])
+		if (board[cur[1][0]-1][cur[1][1]] > 0):
+			succ.append([cur[1][0]-1, cur[1][1])
+		if (board[cur[1][0]][cur[1][1]+1] > 0):
+			succ.append([cur[1][0], cur[1][1]+1)
+		if (board[cur[1][0]][cur[1][1]-1] > 0):
+			succ.append([cur[1][0], cur[1][1]-1)
 			
-		if (board[cur[0]+1][cur[1]] > 0):
-			
-
+		for thinkofabettervariablename in succ:
+			pass
+		#line 8 of nikita's psudocode
 			
 @bottle.post('/move')
 def move():
