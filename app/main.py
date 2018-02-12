@@ -2,6 +2,16 @@ import bottle
 import os
 import random
 
+# see todo.txt for full explanation of the following constants:
+MY_HEAD = 0
+EMPTY = 1
+MY_TAIL = 2
+FOOD = 8
+SNAKE_BODY = -1
+HALO = -2
+BLOCKED = -3
+
+
 # Feb. 12th 2018
 
 @bottle.route('/static/<path:path>')
