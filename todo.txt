@@ -1,0 +1,22 @@
+Feb. 12th 2018 - Notes from Battlesnake Team meeting
+
+TODO LIST:
+1) Heroku server
+2) Be able to actually get into a game
+3) Circle back onto ourselves
+4) Dash out for food
+
+
+ - choose and implement a pathfinding algorithm
+	- Dijkstra's vs A*
+		- both find shortest paths
+		- A* is used for video game enemy pathfinding
+		- (+) we must determine which is better
+
+ - choose 	an algorithm to determine "safety"
+	- walls = not safe
+	- snake body = NOT SAFE
+	- other snake's tail = safe
+	- blocks around another snake's head = <depends>
+		- safe when:
+		- NOT SAFE when:
