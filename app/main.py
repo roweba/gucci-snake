@@ -1,6 +1,7 @@
 import bottle
 import os
 import random
+import heapq
 
 # see todo.txt for full explanation of the following constants:
 MY_HEAD = 0
@@ -40,7 +41,36 @@ def start():
         'name': 'gucci snake'
     }
 
+def h(cur, dest):
+	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
+	
+def aStar(board, head, dest):
+	open = []
+	close = []
+	out = ''
+	succ = []
+	
+	heapq.heappush(open, ((h(head, dest)), head))
+	while(open):
+		cur = heappop(open)
+		if (cur[0] == head[0]+1 and cur[1] == head[1]):
+			out = 'right'
+		elif (cur[0] == head[0]-1 and cur[1] == head[1]):
+			out = 'left'
+		elif (cur[0] == head[0] and cur[1] == head[1]+1):
+			out = 'down'
+		elif (cur[0] == head[0] and cur[1] == head[1]-1):
+			out = 'up'
+			
+		if (cur == dest):
+			return out
 
+		succ	
+			
+		if (board[cur[0]+1][cur[1]] > 0):
+			
+
+			
 @bottle.post('/move')
 def move():
     data = bottle.request.json
