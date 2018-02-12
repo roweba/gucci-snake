@@ -60,8 +60,7 @@ each time, creates a 2D int array (same size as the board), initializes the grid
 *important top left is (0,0) 
 returns a list: game board (2D int array) and a list of size 2, x then y, the location of our snake's head
 """
-def make_board():
-	data = bottle.request.json
+def make_grid(data):
 	# create and initialize grid
 	grid = [[0 for x in range(data['width'])] for y in range(data['height'])]
 	for i in range (len(grid)):
@@ -80,7 +79,7 @@ def make_board():
 modifies a grid's content to reflect the current game board status, following the decided constant names/values
 """
 
-def set_board(grid):
+def set_grid(grid):
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
