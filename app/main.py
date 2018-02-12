@@ -2,6 +2,7 @@ import bottle
 import os
 import random
 
+# Feb. 12th 2018
 
 @bottle.route('/static/<path:path>')
 def static(path):
