@@ -1,6 +1,7 @@
 import bottle
 import os
 import random
+import heapq
 
 # see todo.txt for full explanation of the following constants:
 MY_HEAD = 0
@@ -40,7 +41,49 @@ def start():
         'name': 'gucci snake'
     }
 
+#how far we are from a given destination
+def h(cur, dest):
+	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
 
+#find which direction we want to go to get to the given destination
+def aStar(board, head, dest):
+	open = [] #things to check
+	close = [] #things that have been checked
+	out = '' #the direction to go
+	succ = [] #the list of successors
+	
+	heapq.heappush(open, (h(head, dest), head, 0))#push where we are to start off
+	while(open):#while we have things to check
+		cur = heappop(open)#pop the best thing from the priority queue
+		
+		#set our direction, Joss has a feeling this will need debugging, talk to Joss about it
+		if (cur[1][0] == head[0]+1 and cur[1][1] == head[1]):
+			out = 'right'
+		elif (cur[1][0] == head[0]-1 and cur[1][1] == head[1]):
+			out = 'left'
+		elif (cur[1][0] == head[0] and cur[1][1] == head[1]+1):
+			out = 'down'
+		elif (cur[1][0] == head[0] and cur[1][1] == head[1]-1):
+			out = 'up'
+			
+		#if we find our destination return our initial direction
+		if (cur[1] == dest):
+			return out
+
+		#add safe tiles around the current tile to the list of successors
+		if (board[cur[1][0]+1][cur[1][1]] > 0):
+			succ.append([cur[1][0]+1, cur[1][1])
+		if (board[cur[1][0]-1][cur[1][1]] > 0):
+			succ.append([cur[1][0]-1, cur[1][1])
+		if (board[cur[1][0]][cur[1][1]+1] > 0):
+			succ.append([cur[1][0], cur[1][1]+1)
+		if (board[cur[1][0]][cur[1][1]-1] > 0):
+			succ.append([cur[1][0], cur[1][1]-1)
+			
+		for thinkofabettervariablename in succ:
+			pass
+		#line 8 of nikita's psudocode
+			
 @bottle.post('/move')
 def move():
     data = bottle.request.json
@@ -57,7 +100,7 @@ def move():
 """
 no parameters passed, but uses the POST request containing all the current game information
 each time, creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant
-*important top left is (0,0) 
+*important top left is (0,0)
 returns a list: game board (2D int array) and a list of size 2, x then y, the location of our snake's head
 """
 def make_grid(data):
@@ -65,8 +108,8 @@ def make_grid(data):
 	grid = [[0 for x in range(data['width'])] for y in range(data['height'])]
 	for i in range (len(grid)):
 		for j in range (len(grid[i])):
-			grid[i][j] = ['EMPTY']
-	set_board(grid)i
+			grid_value = set_grid(i,j)
+            grid[i][j] = grid_value
 	# create a variable for the snake head
 	# note: we are unsure about the syntax for getting the head info
 	head = [data['body'][0]['x'] , data['body'][0]['y']]
@@ -81,7 +124,10 @@ Input: two integers, i and j, that re
 modifies a grid's content to reflect the current game board status, following the decided constant names/values
 """
 
-def set_grid(grid):
+def set_grid(i,j):
+    #initialize point from i,j coordinates
+    #make if statements to check what is on the point
+    #return value of the grid space
 
 
 
