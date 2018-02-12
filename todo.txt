@@ -8,6 +8,9 @@ Feb. 12th 2018 - Notes from Battlesnake Team meeting
 		- both find shortest paths
 		- A* is used for video game enemy pathfinding
 		- (+) we must determine which is better
+		- from Computerfile video:
+			- Dijkstra's can take longer, because it checks every node, uses BFS
+			- A* checks fewer nodes as it goes along so can sometimes be faster than Dijkstra's
 
  - choose 	an algorithm to determine "safety"
 	- walls = not safe
