@@ -1,3 +1,5 @@
+# Feb. 12th 2018
+
 import bottle
 import os
 import random
@@ -12,8 +14,6 @@ SNAKE_BODY = -1
 HALO = -2
 BLOCKED = -3
 
-
-# Feb. 12th 2018
 
 @bottle.route('/static/<path:path>')
 def static(path):
@@ -118,13 +118,14 @@ def make_grid(data):
 	return grid, head
 
 
-"""
-Purpose: gives a single cell of the 2D int array from make_grid
-Input: two integers, i and j, that re
-modifies a grid's content to reflect the current game board status, following the decided constant names/values
-"""
 
 def set_grid(i,j):
+	"""Gives a single cell of the 2D int array from make_grid
+	
+	Input: two integers, i and j, that re
+	modifies a grid's content to reflect the current game board status, following the decided constant names/values
+	"""
+
     #initialize point from i,j coordinates
     #make if statements to check what is on the point
     #return value of the grid space
