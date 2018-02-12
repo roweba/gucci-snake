@@ -23,3 +23,19 @@ TODO LIST:
 	- blocks around another snake's head = <depends>
 		- safe when:
 		- NOT SAFE when:
+
+Name of server: theguardianofforever
+Name of snake: Gucci Snake
+
+High level overview of our snake's server's decisions:
+(1) Our server receives POST request from game server
+(2) Examine game board
+(3) Choose Strategy
+(4) Implement Strategy
+(5) Return move
+
+
+List of Strategies:
+(1) Dash for food
+(2) Stay in corner
+(3) Cut people off
