@@ -5,10 +5,16 @@ TODO LIST:
 2) Be able to actually get into a game
 3) Circle back onto ourselves
 4) Dash out for food
+5) Translate the json, ie. "set-up the board" based on the board rules described below 
 
+docs to references:
+	- the best info https://github.com/sendwithus/battlesnake-server
+	- our repo https://github.com/ssojj/battlesnake2k18
+	- example snake https://github.com/sendwithus/battlesnake-python
 
  - choose and implement a pathfinding algorithm
-	- Dijkstra's vs A*
+	- some snakes used floodfill (?)
+	- Dijkstra's vs A* (we have code for A* - Nikita)
 		- both find shortest paths
 		- A* is used for video game enemy pathfinding
 		- (+) we must determine which is better
@@ -16,13 +22,28 @@ TODO LIST:
 			- Dijkstra's can take longer, because it checks every node, uses BFS
 			- A* checks fewer nodes as it goes along so can sometimes be faster than Dijkstra's
 
- - choose 	an algorithm to determine "safety"
+ - choose an algorithm to determine "safety"
 	- walls = not safe
 	- snake body = NOT SAFE
 	- other snake's tail = safe
 	- blocks around another snake's head = <depends>
 		- safe when:
 		- NOT SAFE when:
+	- create a 2D array that describes the "safeness" for every square
+		- important: decide the schema
+			- unsafe spaces are negative
+			- safe spaces are positives
+			- decisions consider game state at next turn
+			- the number code
+				- MY_HEAD 0: our own head
+				- MY_TAIL 2: our own tail 
+				- EMPTY 1: empty tile (includes other snake tail)
+				- FOOD 8: food
+				- SNAKE_BODY -1: snake body (includes our own body and other snakes head)
+				- HALO -2: tiles next to other snake heads (this may change), named because a halo is in close proximity to the head of an angel, just as the tiles marked HALO are adjacent to a tile marked SNAKE_BODY
+				- BLOCKED -3: a tile that cannot be reached ie. the pathfinding algorithm returned false when given this tile 
+	- should tiles be marked unreachable? yes!
+		- if pathfinding algo returns false, we must mark that destination as BLOCKED
 
 Name of server: theguardianofforever
 Name of snake: Gucci Snake
@@ -39,3 +60,19 @@ List of Strategies:
 (1) Dash for food
 (2) Stay in corner
 (3) Cut people off
+
+Meagan's notes from discussion:
+- how to use git
+	- git status
+	- git add todo.txt
+	- git commit -m "This message explains my most recent change."
+	- git push
+	- git has version control, so if we mess up, we can roll back
+- a plan for success, based on experience from last year
+	- get good at python
+	- make a chicken snake, lives in corner, only comes out to get food
+		- this has benefits, is a small snake, mitigates collision
+	- keeping snake small
+		- good: not too long, easier to manage, less collision, needs less food
+		- bad: relies on other snakes to die, could get trapped or killed by large snakes
+		- 
