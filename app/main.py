@@ -94,17 +94,16 @@ def move():
 """
 no parameters passed, but uses the POST request containing all the current game information
 each time, creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant
-*important top left is (0,0) 
+*important top left is (0,0)
 returns a list: game board (2D int array) and a list of size 2, x then y, the location of our snake's head
 """
-def make_board():
-	data = bottle.request.json
+def make_grid(data):
 	# create and initialize grid
 	grid = [[0 for x in range(data['width'])] for y in range(data['height'])]
 	for i in range (len(grid)):
 		for j in range (len(grid[i])):
-			grid[i][j] = ['EMPTY']
-	set_board(grid)i
+			grid_value = set_grid(i,j)
+            grid[i][j] = grid_value
 	# create a variable for the snake head
 	# note: we are unsure about the syntax for getting the head info
 	head = [data['body'][0]['x'] , data['body'][0]['y']]
@@ -117,7 +116,10 @@ def make_board():
 modifies a grid's content to reflect the current game board status, following the decided constant names/values
 """
 
-def set_board(grid):
+def set_grid(i,j):
+    #initialize point from i,j coordinates
+    #make if statements to check what is on the point
+    #return value of the grid space
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
