@@ -44,7 +44,7 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
-
+    make_grid(data)
     # TODO: Do things with data
     directions = ['up', 'down', 'left', 'right']
 
@@ -76,10 +76,15 @@ def make_grid(data):
 
 
 """
+Purpose: gives a single cell of the 2D int array from make_grid
+Input: two integers, i and j, that re
 modifies a grid's content to reflect the current game board status, following the decided constant names/values
 """
 
 def set_grid(grid):
+
+
+
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
