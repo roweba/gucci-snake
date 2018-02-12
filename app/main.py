@@ -27,7 +27,7 @@ def start():
         'color': '#00FF00',
         'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
         'head_url': head_url,
-        'name': 'battlesnake-python'
+        'name': 'gucci snake'
     }
 
 
