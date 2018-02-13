@@ -75,4 +75,21 @@ Meagan's notes from discussion:
 	- keeping snake small
 		- good: not too long, easier to manage, less collision, needs less food
 		- bad: relies on other snakes to die, could get trapped or killed by large snakes
-		- 
+		- aim for kills? nope, but implement a "cutting off" Strategy
+	- best way to idle? ie. when our snake isn't going for food
+		- circles
+		- looping strategy, smallest path to tail
+		- if our snake is big, we could implement a Strategy where we cut off half the board to our opponents
+	- an important element: to have the snake be big or small
+		- when there are lots of snakes, <i missed this part>
+		- recalled that succesful snakes where generally small/medium sized
+		- trying to get lots of food and be longer has a higher overhead than staying small/medium sized
+		- but a bigger snake has more control over the board
+		- it's a tradeoff and our snake will implement both
+	- a snake near the edge of the board is less vulnerable to colliding with other snakes, but has one less direction to move in, should it get cornered
+		- a passive loop could mitigate risk of running into it's own body
+	- examining Better Than Aleksiy's snake
+		- multithreading?? you better believe it! 
+		- does Heroku have multicores?
+	- we are using python 2.7
+	- plan to make a 2D array to keep track of board data based on "safety" relative to our snake 
