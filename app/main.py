@@ -83,27 +83,16 @@ def aStar(board, head, dest):
 		for thinkofabettervariablename in succ:
 			pass
 		#line 8 of nikita's psudocode
-			
-@bottle.post('/move')
-def move():
-    data = bottle.request.json
-    make_grid(data)
-    # TODO: Do things with data
-    directions = ['up', 'down', 'left', 'right']
+	
 
-    return {
-        #'move': random.choice(directions),
-        'move': 'up',
-		'taunt': 'battlesnake-python!'
-    }
-
-"""
-no parameters passed, but uses the POST request containing all the current game information
-each time, creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant
-*important top left is (0,0)
-returns a list: game board (2D int array) and a list of size 2, x then y, the location of our snake's head
-"""
 def make_grid(data):
+	"""Creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant, calls set_grid()
+	
+	Input: none, uses data from POST request
+	Output: 2D int array representing the game board and a list of size 2, x then y, the location of our snake's head
+
+
+	"""
 	# create and initialize grid
 	grid = [[0 for x in range(data['width'])] for y in range(data['height'])]
 	for i in range (len(grid)):
@@ -120,15 +109,31 @@ def make_grid(data):
 
 
 def set_grid(i,j):
-	"""Gives a single cell of the 2D int array from make_grid
+	"""Modifies a grid's content to reflect the current game board status, following the decided constant names/values
+
 	
-	Input: two integers, i and j, that re
-	modifies a grid's content to reflect the current game board status, following the decided constant names/values
+	Input: two integers, i and j
+	Output: an integer
 	"""
 
     #initialize point from i,j coordinates
     #make if statements to check what is on the point
     #return value of the grid space
+
+	
+			
+@bottle.post('/move')
+def move():
+    data = bottle.request.json
+    make_grid(data)
+    # TODO: Do things with data
+    directions = ['up', 'down', 'left', 'right']
+
+    return {
+        #'move': random.choice(directions),
+        'move': 'up',
+		'taunt': 'battlesnake-python!'
+    }
 
 
 
