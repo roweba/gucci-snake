@@ -92,4 +92,5 @@ Meagan's notes from discussion:
 		- multithreading?? you better believe it! 
 		- does Heroku have multicores?
 	- we are using python 2.7
+	- don't forget that the top left of the game board is (0,0)
 	- plan to make a 2D array to keep track of board data based on "safety" relative to our snake 
