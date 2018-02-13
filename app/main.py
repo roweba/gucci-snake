@@ -86,7 +86,7 @@ def aStar(board, head, dest):
 	
 
 def make_grid(data):
-	"""Creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant, calls set_grid()
+	"""Creates a 2D int array, initializes each cell with the EMPTY constant, calls set_grid(), and returns the position of our snake's head
 	
 	Input: none, uses data from POST request
 	Output: 2D int array representing the game board and a list of size 2, x then y, the location of our snake's head
