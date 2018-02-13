@@ -11,6 +11,7 @@ docs to references:
 	- the best info https://github.com/sendwithus/battlesnake-server
 	- our repo https://github.com/ssojj/battlesnake2k18
 	- example snake https://github.com/sendwithus/battlesnake-python
+	- python documentation https://www.python.org/dev/peps/pep-0257/
 
  - choose and implement a pathfinding algorithm
 	- some snakes used floodfill (?)
