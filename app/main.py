@@ -41,6 +41,25 @@ def start():
         'name': 'gucci snake'
     }
 
+#finds the closest bit of food to us just by looking at position on the board, 
+#does not actually find which peice of food takes the least amount of moves
+#to get to, maybe think about implimenting that later?
+#head is a list of (x,y) for our current position, grid is the play grid
+def findFood(head, grid):
+
+    closest = [0, 0] #does not matter just needs to be a list with two things in it
+    distance = 1000000000000 #big number so that the first food found will be less
+
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
+            if (grid[i][j] == 8):
+                curDist = h(head, [i, j])
+                if (curDist < distance):
+                    closest = [i, j]
+                    distance = curDist
+    return closest
+
+
 #how far we are from a given destination
 def h(cur, dest):
 	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
