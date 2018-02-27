@@ -11,6 +11,7 @@ docs to references:
 	- the best info https://github.com/sendwithus/battlesnake-server
 	- our repo https://github.com/ssojj/battlesnake2k18
 	- example snake https://github.com/sendwithus/battlesnake-python
+	- python documentation https://www.python.org/dev/peps/pep-0257/
 
  - choose and implement a pathfinding algorithm
 	- some snakes used floodfill (?)
@@ -92,4 +93,5 @@ Meagan's notes from discussion:
 		- multithreading?? you better believe it! 
 		- does Heroku have multicores?
 	- we are using python 2.7
+	- don't forget that the top left of the game board is (0,0)
 	- plan to make a 2D array to keep track of board data based on "safety" relative to our snake 
