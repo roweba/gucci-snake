@@ -2,6 +2,7 @@ import bottle
 import os
 import random
 
+def aStar (point, data):
 
 @bottle.route('/static/<path:path>')
 def static(path):
