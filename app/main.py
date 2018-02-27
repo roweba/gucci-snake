@@ -41,7 +41,6 @@ def start():
         'name': 'gucci snake'
     }
 
-<<<<<<< HEAD
 """
 no parameters passed, but uses the POST request containing all the current game information
 each time, creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant
@@ -75,8 +74,7 @@ def set_grid(i,j):
     #make if statements to check what is on the point
     #return value of the grid space
 
-=======
-#finds the closest bit of food to us just by looking at position on the board, 
+#finds the closest bit of food to us just by looking at position on the board,
 #does not actually find which peice of food takes the least amount of moves
 #to get to, maybe think about implimenting that later?
 #head is a list of (x,y) for our current position, grid is the play grid
@@ -95,7 +93,6 @@ def findFood(head, grid):
     return closest
 
 
->>>>>>> 03e5fe997508bcba9867590539c03cd7418b14c0
 #how far we are from a given destination
 def h(cur, dest):
 	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
@@ -138,7 +135,6 @@ def aStar(board, head, dest):
 		for thinkofabettervariablename in succ:
 			pass
 		#line 8 of nikita's psudocode
-<<<<<<< HEAD
 
 @bottle.post('/move')
 def move():
@@ -153,12 +149,10 @@ def move():
 		'taunt': 'ESKETITT'
     }
 
-=======
-	
 
 def make_grid(data):
 	"""Creates a 2D int array, initializes each cell with the EMPTY constant, calls set_grid(), and returns the position of our snake's head
-	
+
 	Input: none, uses data from POST request
 	Output: 2D int array representing the game board and a list of size 2, x then y, the location of our snake's head
 
@@ -182,7 +176,7 @@ def make_grid(data):
 def set_grid(i,j):
 	"""Modifies a grid's content to reflect the current game board status, following the decided constant names/values
 
-	
+
 	Input: two integers, i and j
 	Output: an integer
 	"""
@@ -191,8 +185,8 @@ def set_grid(i,j):
     #make if statements to check what is on the point
     #return value of the grid space
 
-	
-			
+
+
 @bottle.post('/move')
 def move():
     data = bottle.request.json
@@ -205,10 +199,6 @@ def move():
         'move': 'up',
 		'taunt': 'battlesnake-python!'
     }
-
-
-
->>>>>>> 03e5fe997508bcba9867590539c03cd7418b14c0
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
