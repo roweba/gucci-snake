@@ -1,0 +1,97 @@
+Feb. 12th 2018 - Notes from Battlesnake Team meeting
+
+TODO LIST:
+1) Heroku server
+2) Be able to actually get into a game
+3) Circle back onto ourselves
+4) Dash out for food
+5) Translate the json, ie. "set-up the board" based on the board rules described below 
+
+docs to references:
+	- the best info https://github.com/sendwithus/battlesnake-server
+	- our repo https://github.com/ssojj/battlesnake2k18
+	- example snake https://github.com/sendwithus/battlesnake-python
+	- python documentation https://www.python.org/dev/peps/pep-0257/
+
+ - choose and implement a pathfinding algorithm
+	- some snakes used floodfill (?)
+	- Dijkstra's vs A* (we have code for A* - Nikita)
+		- both find shortest paths
+		- A* is used for video game enemy pathfinding
+		- (+) we must determine which is better
+		- from Computerfile video:
+			- Dijkstra's can take longer, because it checks every node, uses BFS
+			- A* checks fewer nodes as it goes along so can sometimes be faster than Dijkstra's
+
+ - choose an algorithm to determine "safety"
+	- walls = not safe
+	- snake body = NOT SAFE
+	- other snake's tail = safe
+	- blocks around another snake's head = <depends>
+		- safe when:
+		- NOT SAFE when:
+	- create a 2D array that describes the "safeness" for every square
+		- important: decide the schema
+			- unsafe spaces are negative
+			- safe spaces are positives
+			- decisions consider game state at next turn
+			- the number code
+				- MY_HEAD 0: our own head
+				- MY_TAIL 2: our own tail 
+				- EMPTY 1: empty tile (includes other snake tail)
+				- FOOD 8: food
+				- SNAKE_BODY -1: snake body (includes our own body and other snakes head)
+				- HALO -2: tiles next to other snake heads (this may change), named because a halo is in close proximity to the head of an angel, just as the tiles marked HALO are adjacent to a tile marked SNAKE_BODY
+				- BLOCKED -3: a tile that cannot be reached ie. the pathfinding algorithm returned false when given this tile 
+	- should tiles be marked unreachable? yes!
+		- if pathfinding algo returns false, we must mark that destination as BLOCKED
+
+Name of server: theguardianofforever
+Name of snake: Gucci Snake
+
+High level overview of our snake's server's decisions:
+(1) Our server receives POST request from game server
+(2) Examine game board
+(3) Choose Strategy
+(4) Implement Strategy
+(5) Return move
+
+
+List of Strategies:
+(1) Dash for food
+(2) Stay in corner
+(3) Cut people off
+
+Meagan's notes from discussion:
+- how to use git
+	- git status
+	- git add todo.txt
+	- git commit -m "This message explains my most recent change."
+	- git push
+	- git has version control, so if we mess up, we can roll back
+- a plan for success, based on experience from last year
+	- get good at python
+	- make a chicken snake, lives in corner, only comes out to get food
+		- this has benefits, is a small snake, mitigates collision
+	- keeping snake small
+		- good: not too long, easier to manage, less collision, needs less food
+		- bad: relies on other snakes to die, could get trapped or killed by large snakes
+		- aim for kills? nope, but implement a "cutting off" Strategy
+	- best way to idle? ie. when our snake isn't going for food
+		- circles
+		- looping strategy, smallest path to tail
+		- if our snake is big, we could implement a Strategy where we cut off half the board to our opponents
+	- an important element: to have the snake be big or small
+		- when there are lots of snakes, <i missed this part>
+		- recalled that succesful snakes where generally small/medium sized
+		- trying to get lots of food and be longer has a higher overhead than staying small/medium sized
+		- but a bigger snake has more control over the board
+		- it's a tradeoff and our snake will implement both
+	- a snake near the edge of the board is less vulnerable to colliding with other snakes, but has one less direction to move in, should it get cornered
+		- a passive loop could mitigate risk of running into it's own body
+	- examining Better Than Aleksiy's snake
+		- multithreading?? you better believe it! 
+		- does Heroku have multicores?
+	- we are using python 2.7
+	- don't forget that the top left of the game board is (0,0)
+	- plan to make a 2D array to keep track of board data based on "safety" relative to our snake 
