@@ -96,15 +96,17 @@ def findFood(head, grid):
 #a function to mark all tiles that are unreachable
 #Joss is working on this when procrastinating jk I think its done 
 def findBlocked(grid, head):
-	checked = deepcopy(grid)
-	open = [head]
+	checked = copy.deepcopy(grid)
+	open = []
+	open.append(head)
 	
 	while(open):
-		cur = open.pop #using 1 r for you nikita
-		
+	
+		cur = open.pop() #using 1 r for you nikita
 		checked[cur[0]][cur[1]] = 9
+		
 		#right
-		if (cur[0]+1 <= len(grid)):
+		if (cur[0]+1 < len(grid)):
 			if (checked[cur[0]+1][cur[1]] > 0):
 				if (checked[cur[0]+1][cur[1]] != 9):
 					open.append([cur[0]+1, cur[1]])
@@ -114,7 +116,7 @@ def findBlocked(grid, head):
 				if (checked[cur[0]-1][cur[1]] != 9):
 					open.append([cur[0]-1, cur[1]])
 		#down
-		if (cur[1]+1 <= len(grid[0])):
+		if (cur[1]+1 < len(grid[0])):
 			if (checked[cur[0]][cur[1]+1] > 0):
 				if (checked[cur[0]][cur[1]+1] != 9):
 					open.append([cur[0], cur[1]+1])
@@ -126,7 +128,7 @@ def findBlocked(grid, head):
 	
 	for i in range(len(grid)):
 		for j in range(len(grid[0])):
-			if (grid[i][j] < 0):
+			if (grid[i][j] > 0):
 				if (checked[i][j] != 9):
 					grid[i][j] = -3
 	
