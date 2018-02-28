@@ -14,7 +14,6 @@ SNAKE_BODY = -1
 HALO = -2
 BLOCKED = -3
 
-def aStar (point, data):
 
 @bottle.route('/static/<path:path>')
 def static(path):
@@ -54,7 +53,7 @@ def make_grid(data):
 	for i in range (len(grid)):
 		for j in range (len(grid[i])):
 			grid_value = set_grid(i,j)
-            grid[i][j] = grid_value
+			grid[i][j] = grid_value
 	# create a variable for the snake head
 	# note: we are unsure about the syntax for getting the head info
 	head = [data['body'][0]['x'] , data['body'][0]['y']]
@@ -98,44 +97,77 @@ def findFood(head, grid):
 def h(cur, dest):
 	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
 
+
+
 #find which direction we want to go to get to the given destination
+#http://mat.uab.cat/~alseda/MasterOpt/AStar-Algorithm.pdf
 def aStar(board, head, dest):
-	open = [] #things to check
+	openn = [] #things to check
 	close = [] #things that have been checked
 	out = '' #the direction to go
 	succ = [] #the list of successors
+	cur = None
 
-	heapq.heappush(open, (h(head, dest), head, 0))#push where we are to start off
-	while(open):#while we have things to check
-		cur = heappop(open)#pop the best thing from the priority queue
+	#node dictionary format:
+	#"xy": a tuple in the form (x, y) signifying the position of the node
+	#"estCost": the estimated cost to get to dest from here [h]
+	#"curCost": the cost taken to reach this node [g]
+	#"parent": the previous node in the path
 
-		#set our direction, Joss has a feeling this will need debugging, talk to Joss about it
-		if (cur[1][0] == head[0]+1 and cur[1][1] == head[1]):
-			out = 'right'
-		elif (cur[1][0] == head[0]-1 and cur[1][1] == head[1]):
-			out = 'left'
-		elif (cur[1][0] == head[0] and cur[1][1] == head[1]+1):
-			out = 'down'
-		elif (cur[1][0] == head[0] and cur[1][1] == head[1]-1):
-			out = 'up'
+	headNode = {"xy": head, "estCost": h(head, dest), "curCost": 0, "parent": None}
+	heapq.heappush(openn, (headNode["estCost"] + headNode["curCost"], headNode))#push where we are to start off
+	while(openn):#while we have things to check
+		cur = heappop(openn)[1]#pop the best thing from the priority queue
 
 		#if we find our destination return our initial direction
-		if (cur[1] == dest):
-			return out
+		if (cur['xy'] == dest):
+			break
 
 		#add safe tiles around the current tile to the list of successors
-		if (board[cur[1][0]+1][cur[1][1]] > 0):
-			succ.append([cur[1][0]+1, cur[1][1])
-		if (board[cur[1][0]-1][cur[1][1]] > 0):
-			succ.append([cur[1][0]-1, cur[1][1])
-		if (board[cur[1][0]][cur[1][1]+1] > 0):
-			succ.append([cur[1][0], cur[1][1]+1)
-		if (board[cur[1][0]][cur[1][1]-1] > 0):
-			succ.append([cur[1][0], cur[1][1]-1)
+		#TODO: board edges
+		if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):
+			succ.append(cur['xy'][0]+1, cur['xy'][1])
+		if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
+			succ.append(cur['xy'][0]-1, cur['xy'][1])
+		if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
+			succ.append(cur['xy'][0], cur['xy'][1]+1)
+		if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
+			succ.append(cur['xy'][0], cur['xy'][1]-1)
 
-		for thinkofabettervariablename in succ:
-			pass
-		#line 8 of nikita's psudocode
+		for node in succ:
+			succCost = 1 + cur["curCost"]
+			if(node in openn[:][1]['xy']): #FIXME this might be broken
+				index = openn[:][1]['xy'].index(node)
+				if(openn[index][1]['curCost'] <= succCost): continue
+			elif(node in close[:][1]['xy']):
+				if(openn[index][1]['curCost'] <= succCost): continue
+				closed[index]['curCost'] = succCost
+				heapq.heappush(openn, (closed[index]["estCost"] + closed[index]["curCost"], closed[index]))
+				del closed[index] #YIEKS
+			else:
+				openDictionatry = {"xy": node, "estCost": h(node, dest), "curCost": succCost, "parent": cur}
+				heapq.heappush(openn, (openDictionatry["estCost"] + openDictionatry["curCost"], openDictionatry))
+
+		closed.append(cur)
+
+	#backtracking to find the next tile
+	if(cur['xy'] == dest):
+		prevCur = cur
+		while(cur['parent'] is not None):
+			prevCur = cur
+			cur = cur['parent']
+		#set our direction, Joss has a feeling this will need debugging, talk to Joss about it
+		if (prevCur['xy'][0] == head[0]+1 and prevCur['xy'][1] == head[1]):
+			out = 'right'
+		elif (prevCur['xy'][0] == head[0]-1 and prevCur['xy'][1] == head[1]):
+			out = 'left'
+		elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]+1):
+			out = 'down'
+		elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]-1):
+			out = 'up'
+	else:
+		raise Exception('Path not found')
+
 
 @bottle.post('/move')
 def move():
@@ -170,7 +202,7 @@ def make_grid(data):
 	for i in range (len(grid)):
 		for j in range (len(grid[i])):
 			grid_value = set_grid(i,j)
-            grid[i][j] = grid_value
+			grid[i][j] = grid_value
 	# create a variable for the snake head
 	# note: we are unsure about the syntax for getting the head info
 	head = [data['body'][0]['x'] , data['body'][0]['y']]
