@@ -121,7 +121,7 @@ def findBlocked(grid, head):
 				if (checked[cur[0]][cur[1]+1] != 9):
 					open.append([cur[0], cur[1]+1])
 		#up
-		if (cur[1]+1 >= 0):
+		if (cur[1]-1 >= 0):
 			if (checked[cur[0]][cur[1]-1] > 0):
 				if (checked[cur[0]][cur[1]-1] != 9):
 					open.append([cur[0], cur[1]-1])
