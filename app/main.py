@@ -4,6 +4,7 @@ import bottle
 import os
 import random
 import heapq
+import copy
 
 # see todo.txt for full explanation of the following constants:
 MY_HEAD = 0
@@ -92,7 +93,43 @@ def findFood(head, grid):
                     distance = curDist
     return closest
 
-
+#a function to mark all tiles that are unreachable
+#Joss is working on this when procrastinating jk I think its done 
+def findBlocked(grid, head):
+	checked = deepcopy(grid)
+	open = [head]
+	
+	while(open):
+		cur = open.pop #using 1 r for you nikita
+		
+		checked[cur[0]][cur[1]] = 9
+		#right
+		if (cur[0]+1 <= len(grid)):
+			if (checked[cur[0]+1][cur[1]] > 0):
+				if (checked[cur[0]+1][cur[1]] != 9):
+					open.append([cur[0]+1, cur[1]])
+		#left
+		if (cur[0]-1 >= 0):
+			if (checked[cur[0]-1][cur[1]] > 0):
+				if (checked[cur[0]-1][cur[1]] != 9):
+					open.append([cur[0]-1, cur[1]])
+		#down
+		if (cur[1]+1 <= len(grid[0])):
+			if (checked[cur[0]][cur[1]+1] > 0):
+				if (checked[cur[0]][cur[1]+1] != 9):
+					open.append([cur[0], cur[1]+1])
+		#up
+		if (cur[1]+1 >= 0):
+			if (checked[cur[0]][cur[1]-1] > 0):
+				if (checked[cur[0]][cur[1]-1] != 9):
+					open.append([cur[0], cur[1]-1])
+	
+	for i in range(len(grid)):
+		for j in range(len(grid[0])):
+			if (grid[i][j] < 0):
+				if (checked[i][j] != 9):
+					grid[i][j] = -3
+	
 #how far we are from a given destination
 def h(cur, dest):
 	return abs(cur[0] - dest[0]) + abs(cur[1] - dest[1])
