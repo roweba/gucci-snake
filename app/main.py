@@ -41,6 +41,11 @@ def start():
         'name': 'gucci snake'
     }
 
+def myID(snakes,us):
+    for mySnake in range(len(snakes)):
+        if snakes[mySnake]['id'] == us:
+            return snakes[mySnake]
+
 """
 no parameters passed, but uses the POST request containing all the current game information
 each time, creates a 2D int array (same size as the board), initializes the grid with the EMPTY constant
@@ -52,7 +57,7 @@ def make_grid(data):
 	grid = [[0 for x in range(data['width'])] for y in range(data['height'])]
 	for i in range (len(grid)):
 		for j in range (len(grid[i])):
-			grid_value = set_grid(i,j)
+			grid_value = set_grid(i,j,data)
 			grid[i][j] = grid_value
 	# create a variable for the snake head
 	# note: we are unsure about the syntax for getting the head info
@@ -63,12 +68,13 @@ def make_grid(data):
 
 
 
-def set_grid(i,j):
-	"""Gives a single cell of the 2D int array from make_grid
+def set_grid(i,j,data):
 
-	Input: two integers, i and j, that re
-	modifies a grid's content to reflect the current game board status, following the decided constant names/values
-	"""
+    for snake in data['snakes']:
+        x = snake['body']['data']['x']
+        y = snake['body']['data']['y']
+        if x == i and y == j:
+            return -1
 
     #initialize point from i,j coordinates
     #make if statements to check what is on the point
@@ -172,6 +178,7 @@ def aStar(board, head, dest):
 @bottle.post('/move')
 def move():
     data = bottle.request.json
+    myID(data['snakes'],data['you'])
     make_grid(data)
     # TODO: Do things with data
     directions = ['up', 'down', 'left', 'right']
@@ -180,64 +187,12 @@ def move():
     if len(data['food']) == 5:
         final_dir = 1
 
-    
-
     return {
         #'move': random.choice(directions),
 		'move': directions[final_dir],
         'taunt': 'WELP!'
     }
 
-
-def make_grid(data):
-	"""Creates a 2D int array, initializes each cell with the EMPTY constant, calls set_grid(), and returns the position of our snake's head
-
-	Input: none, uses data from POST request
-	Output: 2D int array representing the game board and a list of size 2, x then y, the location of our snake's head
-
-
-	"""
-	# create and initialize grid
-	grid = [[0 for x in range(data['width'])] for y in range(data['height'])]
-	for i in range (len(grid)):
-		for j in range (len(grid[i])):
-			grid_value = set_grid(i,j)
-			grid[i][j] = grid_value
-	# create a variable for the snake head
-	# note: we are unsure about the syntax for getting the head info
-	head = [data['body'][0]['x'] , data['body'][0]['y']]
-	# head = [data['body'][0].x , data['body'][0].y]
-
-	return grid, head
-
-
-
-def set_grid(i,j):
-	"""Modifies a grid's content to reflect the current game board status, following the decided constant names/values
-
-
-	Input: two integers, i and j
-	Output: an integer
-	"""
-
-    #initialize point from i,j coordinates
-    #make if statements to check what is on the point
-    #return value of the grid space
-
-
-
-@bottle.post('/move')
-def move():
-    data = bottle.request.json
-    make_grid(data)
-    # TODO: Do things with data
-    directions = ['up', 'down', 'left', 'right']
-
-    return {
-        #'move': random.choice(directions),
-        'move': 'up',
-		'taunt': 'battlesnake-python!'
-    }
 
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
