@@ -60,10 +60,8 @@ def make_grid(data):
 		for j in range (len(grid[i])):
 			grid_value = set_grid(i,j,data)
 			grid[i][j] = grid_value
-	# create a variable for the snake head
-	# note: we are unsure about the syntax for getting the head info
-	head = [data['body'][0]['x'] , data['body'][0]['y']]
-	# head = [data['body'][0].x , data['body'][0].y]
+
+	head = [data['you']['body']['data']['x'][0], data['you']['body']['data']['y'][0]]
 
 	return grid, head
 
@@ -81,6 +79,7 @@ def set_grid(i,j,data):
         y = food['y']
         if x == i and y == j:
             return 8
+    return 1
     #initialize point from i,j coordinates
     #make if statements to check what is on the point
     #return value of the grid space
