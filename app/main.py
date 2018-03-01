@@ -65,14 +65,17 @@ def make_grid(data):
 
 def set_grid(i,j,data):
 
-    for snake in data['snakes']['data']:
-        x = snake['body']['data']['x']
-        y = snake['body']['data']['y']
+    snakes_list = data['snakes']['data']
+    food_list = data['food']['data']
+
+    for snake in snake_list:
+        x = snake_list['body']['data'][snake]['x']
+        y = snake_list['body']['data'][snake]['y']
         if x == i and y == j:
             return -1
-    for food in data['food']['data']:
-        x = food['x']
-        y = food['y']
+    for food in food_list:
+        x = food_list[food]['x']
+        y = food_list[food]['y']
         if x == i and y == j:
             return 8
     return 1
