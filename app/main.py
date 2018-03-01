@@ -42,10 +42,6 @@ def start():
         'name': 'gucci snake'
     }
 
-def myID(snakes,us):
-    for mySnake in snakes:
-        if snakes[mySnake]['id'] == us['id']:
-            return snakes[mySnake]
 
 """
 no parameters passed, but uses the POST request containing all the current game information
@@ -220,7 +216,7 @@ def aStar(board, head, dest):
 @bottle.post('/move')
 def move():
 	data = bottle.request.json
-	start = myID(data['snakes'],data['you'])
+	myID = data['you']['id']
 	grid, head = make_grid(data)
 	nextLoc = findFood(grid, head)
 	findBlocked(grid, head)
