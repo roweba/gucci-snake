@@ -68,12 +68,12 @@ def set_grid(i,j,data):
     snakes_list = data['snakes']['data']
     food_list = data['food']['data']
 
-    for snake in snake_list:
+    for snake in range(len(0, snake_list)):
         x = snake_list['body']['data'][snake]['x']
         y = snake_list['body']['data'][snake]['y']
         if x == i and y == j:
             return -1
-    for food in food_list:
+    for food in range(0, len(food_list)):
         x = food_list[food]['x']
         y = food_list[food]['y']
         if x == i and y == j:
