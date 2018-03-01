@@ -43,8 +43,8 @@ def start():
     }
 
 def myID(snakes,us):
-    for mySnake in range(len(snakes)):
-        if snakes[mySnake]['id'] == us:
+    for mySnake in snakes:
+        if snakes[mySnake]['id'] == us['id']:
             return snakes[mySnake]
 
 """
@@ -220,14 +220,14 @@ def aStar(board, head, dest):
 @bottle.post('/move')
 def move():
 	data = bottle.request.json
-	myID(data['snakes'],data['you'])
+	start = myID(data['snakes'],data['you'])
 	grid, head = make_grid(data)
 	nextLoc = findFood(grid, head)
 	findBlocked(grid, head)
 	final_dir = aStar(grid, head)
     # TODO: Do things with data
     #directions = ['up', 'down', 'left', 'right']
-    
+
 	return {
 		#'move': random.choice(directions),
 		'move': final_dir,
