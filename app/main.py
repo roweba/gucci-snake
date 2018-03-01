@@ -65,7 +65,7 @@ def make_grid(data):
 
 def set_grid(i,j,data):
 
-    snakes_list = data['snakes']['data']
+    snake_list = data['snakes']['data']
     food_list = data['food']['data']
 
     for snake in snake_list:
