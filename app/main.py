@@ -88,7 +88,7 @@ def set_grid(i,j,data):
 #does not actually find which peice of food takes the least amount of moves
 #to get to, maybe think about implimenting that later?
 #head is a list of (x,y) for our current position, grid is the play grid
-def findFood(head, grid):
+def findFood(grid, head):
 
     closest = [0, 0] #does not matter just needs to be a list with two things in it
     distance = 1000000000000 #big number so that the first food found will be less
@@ -219,21 +219,20 @@ def aStar(board, head, dest):
 
 @bottle.post('/move')
 def move():
-    data = bottle.request.json
-    myID(data['snakes'],data['you'])
-    make_grid(data)
+	data = bottle.request.json
+	myID(data['snakes'],data['you'])
+	grid, head = make_grid(data)
+	nextLoc = findFood(grid, head)
+	findBlocked(grid, head)
+	final_dir = aStar(grid, head)
     # TODO: Do things with data
-    directions = ['up', 'down', 'left', 'right']
-    final_dir = 2
-    #if len(data['food'][0][0]) == 5:
-    if len(data['food']) == 5:
-        final_dir = 1
-
-    return {
-        #'move': random.choice(directions),
-		'move': directions[final_dir],
-        'taunt': 'WELP!'
-    }
+    #directions = ['up', 'down', 'left', 'right']
+    
+	return {
+		#'move': random.choice(directions),
+		'move': final_dir,
+		'taunt': 'WELP!'
+	}
 
 
 # Expose WSGI app (so gunicorn can find it)
