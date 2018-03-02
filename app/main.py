@@ -88,9 +88,9 @@ def set_grid(i,j,data):
 
     #other snakes' body
     for snake in range(0, len(snake_list)):
-        for curr_snake in range(0,len(snake_list[snake]['body']['data'])):
-            x = snake_list[snake]['body']['data']['x']
-            y = snake_list[snake]['body']['data']['y']
+        for snake_point in range(0,len(snake_list[snake]['body']['data'])):
+            x = snake_list[snake]['body']['data'][snake_point]['x']
+            y = snake_list[snake]['body']['data'][snake_point]['y']
             if x == i and y == j:
                 return -1
 
