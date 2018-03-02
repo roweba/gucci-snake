@@ -142,7 +142,7 @@ def findBlocked(grid, head):
 		cur = open.pop() #using 1 r for you nikita
 		
 		#this is jank figure out whats really happening pls
-		if (cur[0] < len(grid) and cur[0] > 0 and cur[1] < len(grid[0]) and cur[1] > 0):
+		if (cur[0] < len(grid) and cur[0] >= 0 and cur[1] < len(grid[0]) and cur[1] >= 0):
 			pass
 		else:
 			continue
