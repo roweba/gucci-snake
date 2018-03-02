@@ -255,7 +255,7 @@ def move():
 	grid, head = make_grid(data)
 	findBlocked(grid, head)
 	nextLoc = findFood(grid, head)
-	final_dir = aStar(grid, head)
+	final_dir = aStar(grid, head, nextLoc)
     # TODO: Do things with data
     #directions = ['up', 'down', 'left', 'right']
 
