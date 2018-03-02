@@ -202,13 +202,13 @@ def aStar(board, head, dest):
 		#add safe tiles around the current tile to the list of successors
 		#TODO: board edges
 		if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):
-			succ.append(cur['xy'][0]+1, cur['xy'][1])
+			succ.append([cur['xy'][0]+1, cur['xy'][1]])
 		if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
-			succ.append(cur['xy'][0]-1, cur['xy'][1])
+			succ.append([cur['xy'][0]-1, cur['xy'][1]])
 		if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
-			succ.append(cur['xy'][0], cur['xy'][1]+1)
+			succ.append([cur['xy'][0], cur['xy'][1]+1])
 		if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
-			succ.append(cur['xy'][0], cur['xy'][1]-1)
+			succ.append([cur['xy'][0], cur['xy'][1]-1])
 
 		for node in succ:
 			succCost = 1 + cur["curCost"]
