@@ -140,6 +140,13 @@ def findBlocked(grid, head):
 	while(open):
 
 		cur = open.pop() #using 1 r for you nikita
+		
+		#this is jank figure out whats really happening pls
+		if (cur[0] < len(grid) and cur[0] > 0 and cur[1] < len(grid[0]) and cur[1] > 0):
+			pass
+		else:
+			continue
+		
 		checked[cur[0]][cur[1]] = 9
 
 		#right
@@ -200,7 +207,6 @@ def aStar(board, head, dest):
 			break
 
 		#add safe tiles around the current tile to the list of successors
-		#TODO: board edges
 		if (cur['xy'][0]+1 < len(board)):#make sure we are in bounds
 			if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):#is the tile safe
 				succ.append([cur['xy'][0]+1, cur['xy'][1]])#if so add that tile to be examined
