@@ -193,7 +193,7 @@ def aStar(board, head, dest):
 	headNode = {"xy": head, "estCost": h(head, dest), "curCost": 0, "parent": None}
 	heapq.heappush(openn, (headNode["estCost"] + headNode["curCost"], headNode))#push where we are to start off
 	while(openn):#while we have things to check
-		cur = heappop(openn)[1]#pop the best thing from the priority queue
+		cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
 
 		#if we find our destination return our initial direction
 		if (cur['xy'] == dest):
