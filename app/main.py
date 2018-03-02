@@ -36,7 +36,7 @@ def start():
     # TODO: Do things with data
 
     return {
-        'color': '#0000FF',
+        'color': '#FF3399',
         'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
         'head_url': head_url,
         'name': 'gucci snake'
@@ -88,7 +88,7 @@ def set_grid(i,j,data):
 
     #other snakes' body
     for snake in range(0, len(snake_list)):
-        for curr_snake in range(0,len(snake_list['body']['data'])):
+        for curr_snake in range(0,len(snake_list[snake]['body']['data'])):
             x = snake_list[snake]['body']['data']['x']
             y = snake_list[snake]['body']['data']['y']
             if x == i and y == j:
@@ -262,7 +262,7 @@ def move():
 	return {
 		#'move': random.choice(directions),
 		'move': final_dir,
-		'taunt': 'WELP!'
+		'taunt': 'skrrt'
 	}
 
 
