@@ -99,7 +99,7 @@ def set_grid(i,j,data):
         #if point is adjacent to a point in the heads list mark the spot as -2 (halo)
         x = snake_list[snake]['body']['data'][0]['x']
         y = snake_list[snake]['body']['data'][0]['y']
-        if [x+1,y] in snake_heads or [x-1,y] in snake_heads or [x,y+1] in snake_heads or [x,y-2] in snake_heads:
+        if [x+1,y] in snake_heads or [x-1,y] in snake_heads or [x,y+1] in snake_heads or [x,y-1] in snake_heads:
             return -2
 
     #food
