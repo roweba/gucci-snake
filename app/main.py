@@ -221,8 +221,8 @@ def aStar(board, head, dest):
 				heapq.heappush(openn, (closed[index]["estCost"] + closed[index]["curCost"], closed[index]))
 				del closed[index] #YIEKS
 			else:
-				openDictionatry = {"xy": node, "estCost": h(node, dest), "curCost": succCost, "parent": cur}
-				heapq.heappush(openn, (openDictionatry["estCost"] + openDictionatry["curCost"], openDictionatry))
+				openDictionary = {"xy": node, "estCost": h(node, dest), "curCost": succCost, "parent": cur}
+				heapq.heappush(openn, (openDictionary["estCost"] + openDictionary["curCost"], openDictionary))
 
 		closed.append(cur)
 
@@ -247,6 +247,21 @@ def aStar(board, head, dest):
 #def safemove():
     #if there are no openings to food, stall until there are
 
+"""
+def chill(data,grid,head,tail):
+    #aStar to the closest wall
+
+    #make a list of points that are the grid edges
+    #astar from the head to each point in the list of edges
+
+
+    tail_cost = aStar(grid,head,tail)
+    while data['you']['health'] + tail_cost > 30:
+        aStar(grid,head,tail)
+
+"""
+
+#def final_move():
 
 @bottle.post('/move')
 def move():
