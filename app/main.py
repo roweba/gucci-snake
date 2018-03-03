@@ -233,7 +233,7 @@ def aStar(board, head, dest):
 			elif(node in [x['xy'] for x in close]):
 				#print('-'*20, openn[index])
 				index = [x['xy'] for x in close].index(node)
-				if(close[index][1]['curCost'] <= succCost): continue
+				if(close[index]['curCost'] <= succCost): continue
 				try:
 					close[index]['curCost'] = succCost
 				except IndexError:
