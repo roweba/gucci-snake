@@ -71,12 +71,16 @@ def set_grid(i,j,data):
     food_list = data['food']['data']
     my_length = data['you']['length']
     snake_heads = []
+    my_x = data['you']['body']['data'][0]['x']
+    my_y = data['you']['body']['data'][0]['y']
+    our_head = [my_x,my_y]
 
     #make a list of snake head coords as tuples of (x,y) points
     for snake in range(0, len(snake_list)):
         x = snake_list[snake]['body']['data'][0]['x']
         y = snake_list[snake]['body']['data'][0]['y']
-        snake_heads.append([x,y])
+        if [x,y] != our_head:
+            snake_heads.append([x,y])
 
     #our head
     if data['you']['body']['data'][0]['x'] == i and data['you']['body']['data'][0]['y'] == j:
@@ -92,12 +96,8 @@ def set_grid(i,j,data):
     #halo
     for snake in range(0, len(snake_list)):
         #if point is adjacent to a point in the heads list mark the spot as -2 (halo)
-        x = data['you']['body']['data'][0]['x']
-        y = data['you']['body']['data'][0]['y']
-        our_head = [x,y]
         if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
-            if [i+1,j] != our_head and [i-1,j] != our_head and [i,j+1] != our_head and [i,j-1] != our_head:
-                return HALO
+            return HALO
     #our tail
     if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
         return MY_TAIL
@@ -115,8 +115,8 @@ def set_grid(i,j,data):
 # chicken_wall function determines the closest wall
 # Input: head of snake
 # Output: a point on the closest wall, to give to A*
-# written    
-def chicken_wall(grid, head): 
+# written
+def chicken_wall(grid, head):
 	# booleans to keep track if the vars get modified, for if they do, it means that we need to return a different direction
 	mod_x = False
 	mod_y = False
@@ -124,17 +124,17 @@ def chicken_wall(grid, head):
 	temp_x = head[0]
 	temp_y = head[1]
 	mid = len(grid)/2
-	
+
 	# check x value
 	if (temp_x > mid): # if x = mid is included here
 		temp_x = length - 1 - temp_x # tempx is now the distance to closest wall
 		mod_x = True;
-		
+
 	# check y value
-	if (temp_y > mid): # if y = mid is included here 
+	if (temp_y > mid): # if y = mid is included here
 		temp_y = length - 1 - temp_y # tempy is now the distance to closest wall
 		mod_y = True;
-		
+
 	# compare temp_x and temp_y to see which wall is closer
 	if (temp_x <= temp_y):
 		if (mod_x):
@@ -149,7 +149,7 @@ def chicken_wall(grid, head):
 			return [head[0], len(grid)-1]
 		else:
 			#return 'up'
-			return [head[0], 0]	
+			return [head[0], 0]
 
 #finds the closest bit of food to us just by looking at position on the board,
 #does not actually find which peice of food takes the least amount of moves
