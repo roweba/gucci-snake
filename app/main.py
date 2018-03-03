@@ -240,6 +240,7 @@ def aStar(board, head, dest):
 
 	#backtracking to find the next tile
 	if(cur['xy'] == dest):
+		print 'Found the destination!!!'
 		prevCur = cur
 		while(cur['parent'] is not None):
 			prevCur = cur
