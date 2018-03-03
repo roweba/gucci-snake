@@ -253,6 +253,7 @@ def aStar(board, head, dest):
 			out = 'down'
 		elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]-1):
 			out = 'up'
+		return out
 	else:
 		raise Exception('Path not found')
 
