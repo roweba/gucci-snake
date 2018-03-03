@@ -5,6 +5,7 @@ import os
 import random
 import heapq
 import copy
+import time
 
 # see todo.txt for full explanation of the following constants:
 MY_HEAD = 0
@@ -343,9 +344,11 @@ def closest_wall(data,grid,head,tail):
 
 @bottle.post('/move')
 def move():
+	start_time = time.time()
 	data = bottle.request.json
 	myID = data['you']['id']
 	grid, head = make_grid(data)
+	print("--- %s @ MAKE_GRID ---" % (time.time() - start_time))
 	my_length = data['you']['length']
 	tail = ([data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']])
 
@@ -353,8 +356,11 @@ def move():
 	# 	print grid[i]
 
 	findBlocked(grid, head)
+	print("--- %s @ FINDBLOCKED ---" % (time.time() - start_time))
 	closestFood = findFood(grid, head)
+	print("--- %s @ FINDFOOD ---" % (time.time() - start_time))
 	final_dir, dist = aStar(grid,head,closestFood)
+	print("--- %s @ A* ---" % (time.time() - start_time))
 
 	# while(1):
 	# 	try:
