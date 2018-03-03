@@ -101,7 +101,7 @@ def set_grid(i,j,data):
     #our tail
     if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
         return MY_TAIL
-        
+
     #food
     for food in range(0, len(food_list)):
         x = food_list[food]['x']
