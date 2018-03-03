@@ -327,7 +327,7 @@ def closest_wall(data,grid,head,tail):
 	for x in range(board_width-1):
 		walls.append([x,board_length-1])
 
-	for index in range(walls):
+	for index in range(len(walls)):
 		curr_cost = aStar(grid, head, walls[index])[1]
 		if curr_cost < min_cost:
 			min_cost = curr_cost
