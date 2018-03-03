@@ -220,7 +220,7 @@ def aStar(board, head, dest):
 				if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
 					succ.append([cur['xy'][0], cur['xy'][1]+1])
 			except IndexError:
-				print 'CAUGHT THE ERROR:', len(board[0]), cur['xy'][1]+1
+				print 'CAUGHT THE FIRST ERROR:', len(board[0]), cur['xy'][1]+1
 		if (cur['xy'][1]-1 > 0):
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
@@ -233,7 +233,11 @@ def aStar(board, head, dest):
 			elif(node in [x['xy'] for x in close]):
 				#print('-'*20, openn[index])
 				if(openn[index][1]['curCost'] <= succCost): continue
-				close[index]['curCost'] = succCost
+				try:
+					close[index]['curCost'] = succCost
+				except IndexError:
+					print 'CAUGHT THE SECOND ERROR', index
+					print '^^^^^^^^ close[index] = ', close['index']
 				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
 				del close[index] #YIEKS
 			else:
