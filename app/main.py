@@ -215,9 +215,12 @@ def aStar(board, head, dest):
 			if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
 				succ.append([cur['xy'][0]-1, cur['xy'][1]])
 		if (cur['xy'][1]+1 < len(board[0])):
-			print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
-			if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
-				succ.append([cur['xy'][0], cur['xy'][1]+1])
+			#print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
+			try:
+				if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
+					succ.append([cur['xy'][0], cur['xy'][1]+1])
+			except IndexError:
+				print 'CAUGHT THE ERROR:', len(board[0]), cur['xy'][1]+1
 		if (cur['xy'][1]-1 > 0):
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
