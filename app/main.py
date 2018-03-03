@@ -380,7 +380,7 @@ def move():
 	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
 	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
 	'Spend ten racks on new scales',
-	'My snake love eat mice, ooh',
+	'My snake love to eat mice, ooh',
 	'I bought a snake, I forgot her name',
 	'I can\'t buy a snake no wedding ring',
 	'Rather go and buy Balmains',
