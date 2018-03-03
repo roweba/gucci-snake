@@ -354,7 +354,7 @@ def move():
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
-	final_dir = aStar(grid,head,closestFood)
+	final_dir, dist = aStar(grid,head,closestFood)
 
 	# while(1):
 	# 	try:
