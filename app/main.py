@@ -114,6 +114,45 @@ def set_grid(i,j,data):
 	#empty
 	return EMPTY
 
+# chicken_wall function determines the closest wall
+# Input: head of snake
+# Output: a point on the closest wall, to give to A*
+# written    
+def chicken_wall(grid, head): 
+	# booleans to keep track if the vars get modified, for if they do, it means that we need to return a different direction
+	mod_x = False
+	mod_y = False
+	# the x and y values for head
+	temp_x = head[0]
+	temp_y = head[1]
+	mid = len(grid)/2
+	
+	# check x value
+	if (temp_x > mid): # if x = mid is included here
+		temp_x = length - 1 - temp_x # tempx is now the distance to closest wall
+		mod_x = True;
+		
+	# check y value
+	if (temp_y > mid): # if y = mid is included here 
+		temp_y = length - 1 - temp_y # tempy is now the distance to closest wall
+		mod_y = True;
+		
+	# compare temp_x and temp_y to see which wall is closer
+	if (temp_x <= temp_y):
+		if (mod_x):
+			#return 'right'
+			return [len(grid)-1, head[1]]
+		else:
+			#return 'left'
+			return [0, head[1]],
+	else: # temp_y <= temp_x
+		if (mod_y):
+			#return 'down'
+			return [head[0], len(grid)-1]
+		else:
+			#return 'up'
+			return [head[0], 0]	
+
 #finds the closest bit of food to us just by looking at position on the board,
 #does not actually find which peice of food takes the least amount of moves
 #to get to, maybe think about implimenting that later?
