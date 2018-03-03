@@ -322,12 +322,12 @@ def closest_wall(data,grid,head,tail):
 		walls.append([i,0])
 	for j in range(board_length-1):
 		walls.append([0,j])
-	for k in range(board_width-1):
+	for k in range(board_length-1):
 		walls.append([board_width-1,k])
-	for x in range(board_length-1):
-		walls.append([board_length-1,x])
+	for x in range(board_width-1):
+		walls.append([x,board_length-1])
 
-	for index in range(walls):
+	for index in range(len(walls)):
 		curr_cost = aStar(grid, head, walls[index])[1]
 		if curr_cost < min_cost:
 			min_cost = curr_cost
@@ -347,14 +347,15 @@ def move():
 	myID = data['you']['id']
 	grid, head = make_grid(data)
 	my_length = data['you']['length']
-	tail = (data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y'])
+	tail = ([data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']])
 
 	# for i in range(len(grid)):
 	# 	print grid[i]
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
-	
+    final_dir = aStar(grid,head,closestFood)
+"""
 	while(1):
 		try:
 			food_dir, cost = aStar(grid, head, closestFood)
@@ -362,7 +363,7 @@ def move():
 			grid[closestFood[0]][closestFood[1]] = -3
 		else:
 			break
-	
+
 	print('>>>>>>>>>>>>>>>>> food:', food_dir)
 
 	final_dir = ''
@@ -378,7 +379,7 @@ def move():
 
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
-
+"""
 	taunts = [
 	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
 	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
