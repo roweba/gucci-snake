@@ -355,7 +355,7 @@ def move():
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
 	final_dir = aStar(grid,head,closestFood)
-	"""
+
 	while(1):
 		try:
 			food_dir, cost = aStar(grid, head, closestFood)
@@ -374,12 +374,12 @@ def move():
 	else:
 		final_dir = food_dir
 		print('>>>>>>>>>>>>>>>>> HUNGRY!')
-
-	print('>>>>>>>>>>>>>>>>> final direction:', food_dir)
-
+	
+	print('>>>>>>>>>>>>>>>>> final direction:', final_dir)
+	
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
-	"""
+	
 	taunts = [
 	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
 	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
