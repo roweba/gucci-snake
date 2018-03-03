@@ -104,8 +104,12 @@ def set_grid(i,j,data):
     #halo
     for snake in range(0, len(snake_list)):
         #if point is adjacent to a point in the heads list mark the spot as -2 (halo)
+        x = data['you']['body']['data'][0]['x']
+        y = data['you']['body']['data'][0]['y']
+        our_head = [x,y]
         if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
-            return HALO
+            if [i+1,j] != our_head and [i-1,j] != our_head and [i,j+1] != our_head and [i,j-1] != our_head:
+                return HALO
 
     #empty
     return EMPTY
