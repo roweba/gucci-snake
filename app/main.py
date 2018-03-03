@@ -354,7 +354,15 @@ def move():
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
-	food_dir, cost = aStar(grid, head, closestFood)
+	
+	while(true):
+		try:
+			food_dir, cost = aStar(grid, head, closestFood)
+		except Exception:
+			grid[closestFood[0]][closestFood[1]] = -3
+		else:
+			break
+	
 	print('>>>>>>>>>>>>>>>>> food:', food_dir)
 
 	final_dir = ''
@@ -375,7 +383,7 @@ def move():
 	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
 	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
 	'Spend ten racks on new scales',
-	'My snake love eat mice, ooh',
+	'My snake love to eat mice, ooh',
 	'I bought a snake, I forgot her name',
 	'I can\'t buy a snake no wedding ring',
 	'Rather go and buy Balmains',
