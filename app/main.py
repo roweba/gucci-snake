@@ -336,7 +336,7 @@ def closest_wall(data,grid,head,tail):
 
 	closest_food = findFood(grid, head)
 	food_cost = aStar(grid, head, closest_food)[1]
-	while data['you']['health'] > 30 + food_cost:
+	if data['you']['health'] > 30 + food_cost:
 		wall_dir = aStar(grid,head,tail)[0]
 
 	return wall_dir
