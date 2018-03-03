@@ -334,12 +334,12 @@ def closest_wall(data,grid,head,tail):
 			min_cost = curr_cost
 			closest = walls[index]
 
-	closest_food = findFood(grid, head)
-	food_cost = aStar(grid, head, closest_food)[1]
-	if data['you']['health'] > 30 + food_cost:
-		wall_dir = aStar(grid,head,tail)[0]
+	# closest_food = findFood(grid, head)
+	# food_cost = aStar(grid, head, closest_food)[1]
+	# if data['you']['health'] > 30 + food_cost:
+	# 	wall_dir = aStar(grid,head,tail)[0]
 
-	return wall_dir
+	return closest
 
 
 #def final_move():
