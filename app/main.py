@@ -347,6 +347,7 @@ def move():
 	myID = data['you']['id']
 	grid, head = make_grid(data)
 	my_length = data['you']['length']
+	tail = (data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y'])
 
 	# for i in range(len(grid)):
 	# 	print grid[i]
@@ -359,7 +360,7 @@ def move():
 	final_dir = ''
 
 	if(data['you']['health'] > 30 + cost):
-		final_dir = aStar(grid, head, data['you']['body']['data'][my_length-1])
+		final_dir = aStar(grid, head, tail)
 
 	else:
 		final_dir = food_dir
