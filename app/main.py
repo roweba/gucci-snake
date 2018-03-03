@@ -223,18 +223,18 @@ def aStar(board, head, dest):
 		for node in succ:
 			succCost = 1 + cur["curCost"]
 			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
-				index = [x[1]['xy'] for x in openn].index(node)
+				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
 				if(openn[index][1]['curCost'] <= succCost): continue
 			elif(node in [x[1]['xy'] for x in close]):
 				if(openn[index][1]['curCost'] <= succCost): continue
-				closed[index]['curCost'] = succCost
-				heapq.heappush(openn, (closed[index]["estCost"] + closed[index]["curCost"], closed[index]))
-				del closed[index] #YIEKS
+				close[index]['curCost'] = succCost
+				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
+				del close[index] #YIEKS
 			else:
 				openDictionatry = {"xy": node, "estCost": h(node, dest), "curCost": succCost, "parent": cur}
 				heapq.heappush(openn, (openDictionatry["estCost"] + openDictionatry["curCost"], openDictionatry))
 
-		closed.append(cur)
+		close.append(cur)
 
 	#backtracking to find the next tile
 	if(cur['xy'] == dest):
