@@ -354,7 +354,15 @@ def move():
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
-	food_dir, cost = aStar(grid, head, closestFood)
+	
+	while(true):
+		try:
+			food_dir, cost = aStar(grid, head, closestFood)
+		except Exception:
+			grid[closestFood[0]][closestFood[1]] = -3
+		else:
+			break
+	
 	print('>>>>>>>>>>>>>>>>> food:', food_dir)
 
 	final_dir = ''
