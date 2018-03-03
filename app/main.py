@@ -322,10 +322,10 @@ def closest_wall(data,grid,head,tail):
 		walls.append([i,0])
 	for j in range(board_length-1):
 		walls.append([0,j])
-	for k in range(board_width-1):
+	for k in range(board_length-1):
 		walls.append([board_width-1,k])
-	for x in range(board_length-1):
-		walls.append([board_length-1,x])
+	for x in range(board_width-1):
+		walls.append([x,board_length-1])
 
 	for index in range(walls):
 		curr_cost = aStar(grid, head, walls[index])[1]
@@ -354,7 +354,7 @@ def move():
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
-	
+
 	while(1):
 		try:
 			food_dir, cost = aStar(grid, head, closestFood)
@@ -362,7 +362,7 @@ def move():
 			grid[closestFood[0]][closestFood[1]] = -3
 		else:
 			break
-	
+
 	print('>>>>>>>>>>>>>>>>> food:', food_dir)
 
 	final_dir = ''
