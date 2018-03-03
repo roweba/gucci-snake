@@ -307,6 +307,10 @@ def move():
 	data = bottle.request.json
 	myID = data['you']['id']
 	grid, head = make_grid(data)
+
+	for i in range(len(grid)):
+		print grid[i]
+
 	findBlocked(grid, head)
 	nextLoc = findFood(grid, head)
 	final_dir = aStar(grid, head, nextLoc)
