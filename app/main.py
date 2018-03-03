@@ -334,9 +334,11 @@ def closest_wall(data,grid,head,tail):
 			closest = walls[index]
 
 	closest_food = findFood(grid, head)
-	aStar(grid, head, closest_food)
-	while data['you']['health'] + closest_food > 30:
-		aStar(grid,head,tail)
+	food_cost = aStar(grid, head, closest_food)[1]
+	while data['you']['health'] > 30 + food_cost:
+		wall_dir = aStar(grid,head,tail)[0]
+
+	return wall_dir
 
 
 #def final_move():
@@ -350,36 +352,36 @@ def move():
 	tail = ([data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']])
 
 	# for i in range(len(grid)):
-	# 	print grid[i]
+	#     print grid[i]
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
 	final_dir, dist = aStar(grid,head,closestFood)
 
 	# while(1):
-	# 	try:
-	# 		food_dir, cost = aStar(grid, head, closestFood)
-	# 	except Exception:
-	# 		grid[closestFood[0]][closestFood[1]] = -3
-	# 	else:
-	# 		break
+	#     try:
+	#         food_dir, cost = aStar(grid, head, closestFood)
+	#     except Exception:
+	#         grid[closestFood[0]][closestFood[1]] = -3
+	#     else:
+	#         break
 
 	# print('>>>>>>>>>>>>>>>>> food:', food_dir)
 
 	# final_dir = ''
 
 	# if(data['you']['health'] > 30 + cost):
-	# 	final_dir = aStar(grid, head, tail)
-	# 	print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
+	#     final_dir = aStar(grid, head, tail)
+	#     print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
 	# else:
-	# 	final_dir = food_dir
-	# 	print('>>>>>>>>>>>>>>>>> HUNGRY!')
-	
+	#     final_dir = food_dir
+	#     print('>>>>>>>>>>>>>>>>> HUNGRY!')
+
 	print('>>>>>>>>>>>>>>>>> final direction:', final_dir)
-	
+
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
-	
+
 	taunts = [
 	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
 	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
