@@ -314,7 +314,7 @@ def closest_wall(data,grid,head,tail):
 	walls = [] #list walls as [x,y points]
 	board_width = data['width']
 	board_length = data['length']
-	closest_wall = [] #[x,y] point of the closest wall
+	closest = [] #[x,y] point of the closest wall
 	min_cost = 100000
 
 	#make a list of points that are the grid edges
@@ -331,7 +331,7 @@ def closest_wall(data,grid,head,tail):
 		curr_cost = aStar(grid, head, walls[index])[1]
 		if curr_cost < min_cost:
 			min_cost = curr_cost
-			closest_wall = walls[index]
+			closest = walls[index]
 
 	closest_food = findFood(grid, head)
 	aStar(grid, head, closest_food)
