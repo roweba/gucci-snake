@@ -318,6 +318,17 @@ def move():
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
 
+	taunts = [
+	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
+	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
+	'Spend ten racks on new scales',
+	'My snake love eat mice, ooh',
+	'I bought a snake, I forgot her name',
+	'I can\'t buy a snake no wedding ring',
+	'Rather go and buy Balmains',
+	'Gucci snake, Gucci snake, Gucci snake (Gucci snake!)'
+	]
+
 	return {
 		#'move': random.choice(directions),
 		'move': final_dir,
