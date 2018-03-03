@@ -373,7 +373,8 @@ def move():
 
 	else:
 		final_dir = food_dir
-		print('>>>>>>>>>>>>>>>>> HUNGRY:')
+		print('>>>>>>>>>>>>>>>>> HUNGRY!')
+
 	print('>>>>>>>>>>>>>>>>> final direction:', food_dir)
 
 	# TODO: Do things with data
