@@ -140,6 +140,13 @@ def findBlocked(grid, head):
 	while(open):
 
 		cur = open.pop() #using 1 r for you nikita
+		
+		#this is jank figure out whats really happening pls
+		if (cur[0] < len(grid) and cur[0] >= 0 and cur[1] < len(grid[0]) and cur[1] >= 0):
+			pass
+		else:
+			continue
+		
 		checked[cur[0]][cur[1]] = 9
 
 		#right
@@ -200,31 +207,36 @@ def aStar(board, head, dest):
 			break
 
 		#add safe tiles around the current tile to the list of successors
-		#TODO: board edges
-		if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):
-			succ.append([cur['xy'][0]+1, cur['xy'][1]])
-		if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
-			succ.append([cur['xy'][0]-1, cur['xy'][1]])
-		if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
-			succ.append([cur['xy'][0], cur['xy'][1]+1])
-		if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
-			succ.append([cur['xy'][0], cur['xy'][1]-1])
+		if (cur['xy'][0]+1 < len(board)):#make sure we are in bounds
+			#print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
+			if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):#is the tile safe
+				succ.append([cur['xy'][0]+1, cur['xy'][1]])#if so add that tile to be examined
+		if (cur['xy'][0]-1 > 0):
+			if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
+				succ.append([cur['xy'][0]-1, cur['xy'][1]])
+		if (cur['xy'][1]+1 < len(board[0])):
+			if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
+				succ.append([cur['xy'][0], cur['xy'][1]+1])
+		if (cur['xy'][1]-1 > 0):
+			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
+				succ.append([cur['xy'][0], cur['xy'][1]-1])
 
 		for node in succ:
 			succCost = 1 + cur["curCost"]
-			if(node in openn[:][1]['xy']): #FIXME this might be broken
-				index = openn[:][1]['xy'].index(node)
+			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
+				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
 				if(openn[index][1]['curCost'] <= succCost): continue
-			elif(node in close[:][1]['xy']):
+			elif(node in [x['xy'] for x in close]):
+				print('-'*20, openn[index])
 				if(openn[index][1]['curCost'] <= succCost): continue
-				closed[index]['curCost'] = succCost
-				heapq.heappush(openn, (closed[index]["estCost"] + closed[index]["curCost"], closed[index]))
-				del closed[index] #YIEKS
+				close[index]['curCost'] = succCost
+				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
+				del close[index] #YIEKS
 			else:
 				openDictionary = {"xy": node, "estCost": h(node, dest), "curCost": succCost, "parent": cur}
 				heapq.heappush(openn, (openDictionary["estCost"] + openDictionary["curCost"], openDictionary))
 
-		closed.append(cur)
+		close.append(cur)
 
 	#backtracking to find the next tile
 	if(cur['xy'] == dest):
@@ -271,6 +283,7 @@ def move():
 	findBlocked(grid, head)
 	nextLoc = findFood(grid, head)
 	final_dir = aStar(grid, head, nextLoc)
+	print('>>>>>>>>>>>>>>>>>', final_dir)
     # TODO: Do things with data
     #directions = ['up', 'down', 'left', 'right']
 
