@@ -368,10 +368,13 @@ def move():
 	'Gucci snake, Gucci snake, Gucci snake (Gucci snake!)'
 	]
 
+	v = data['turn'] / 10
+	taunt = taunts[v % 8]
+
 	return {
 		#'move': random.choice(directions),
 		'move': final_dir,
-		'taunt': 'skrrt'
+		'taunt': taunt
 	}
 
 
