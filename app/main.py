@@ -347,14 +347,15 @@ def move():
 	myID = data['you']['id']
 	grid, head = make_grid(data)
 	my_length = data['you']['length']
-	tail = (data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y'])
+	tail = ([data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']])
 
 	# for i in range(len(grid)):
 	# 	print grid[i]
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
-
+    final_dir = aStar(grid,head,closestFood)
+"""
 	while(1):
 		try:
 			food_dir, cost = aStar(grid, head, closestFood)
@@ -380,7 +381,7 @@ def move():
 
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
-
+"""
 	taunts = [
 	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
 	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
