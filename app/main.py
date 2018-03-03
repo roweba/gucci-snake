@@ -220,7 +220,7 @@ def aStar(board, head, dest):
 				if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
 					succ.append([cur['xy'][0], cur['xy'][1]+1])
 			except IndexError:
-				print 'CAUGHT THE FIRST ERROR:', len(board[0]), cur['xy'][1]+1
+				print 'CAUGHT THE FIRST ERROR: ', len(board[0]), cur['xy'][1]+1
 		if (cur['xy'][1]-1 > 0):
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
@@ -236,7 +236,7 @@ def aStar(board, head, dest):
 				try:
 					close[index]['curCost'] = succCost
 				except IndexError:
-					print 'CAUGHT THE SECOND ERROR', index
+					print 'CAUGHT THE SECOND ERROR: ', index, 'length: ', len(close)
 					print '^^^^^^^^ close[index] = ', close['index']
 				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
 				del close[index] #YIEKS
