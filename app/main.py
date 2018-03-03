@@ -222,7 +222,7 @@ def aStar(board, head, dest):
 
 		for node in succ:
 			succCost = 1 + cur["curCost"]
-			if(node in [x[1] for x in openn['xy']]): #FIXME this might be broken
+			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
 				index = openn[:][1]['xy'].index(node)
 				if(openn[index][1]['curCost'] <= succCost): continue
 			elif(node in close[:][1]['xy']):
