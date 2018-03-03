@@ -313,7 +313,7 @@ def move():
 
 	findBlocked(grid, head)
 	nextLoc = findFood(grid, head)
-	final_dir = aStar(grid, head, nextLoc)
+	final_dir, cost = aStar(grid, head, nextLoc)
 	print('>>>>>>>>>>>>>>>>>', final_dir)
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
