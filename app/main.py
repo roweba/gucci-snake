@@ -215,6 +215,7 @@ def aStar(board, head, dest):
 			if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
 				succ.append([cur['xy'][0]-1, cur['xy'][1]])
 		if (cur['xy'][1]+1 < len(board[0])):
+			print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
 			if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]+1])
 		if (cur['xy'][1]-1 > 0):
@@ -227,7 +228,7 @@ def aStar(board, head, dest):
 				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
 				if(openn[index][1]['curCost'] <= succCost): continue
 			elif(node in [x['xy'] for x in close]):
-				print('-'*20, openn[index])
+				#print('-'*20, openn[index])
 				if(openn[index][1]['curCost'] <= succCost): continue
 				close[index]['curCost'] = succCost
 				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
