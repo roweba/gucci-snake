@@ -208,6 +208,7 @@ def aStar(board, head, dest):
 
 		#add safe tiles around the current tile to the list of successors
 		if (cur['xy'][0]+1 < len(board)):#make sure we are in bounds
+			print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
 			if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):#is the tile safe
 				succ.append([cur['xy'][0]+1, cur['xy'][1]])#if so add that tile to be examined
 		if (cur['xy'][0]-1 > 0):
