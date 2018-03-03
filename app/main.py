@@ -356,24 +356,24 @@ def move():
 	closestFood = findFood(grid, head)
 	final_dir = aStar(grid,head,closestFood)
 
-	while(1):
-		try:
-			food_dir, cost = aStar(grid, head, closestFood)
-		except Exception:
-			grid[closestFood[0]][closestFood[1]] = -3
-		else:
-			break
+	# while(1):
+	# 	try:
+	# 		food_dir, cost = aStar(grid, head, closestFood)
+	# 	except Exception:
+	# 		grid[closestFood[0]][closestFood[1]] = -3
+	# 	else:
+	# 		break
 
-	print('>>>>>>>>>>>>>>>>> food:', food_dir)
+	# print('>>>>>>>>>>>>>>>>> food:', food_dir)
 
-	final_dir = ''
+	# final_dir = ''
 
-	if(data['you']['health'] > 30 + cost):
-		final_dir = aStar(grid, head, tail)
-		print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
-	else:
-		final_dir = food_dir
-		print('>>>>>>>>>>>>>>>>> HUNGRY!')
+	# if(data['you']['health'] > 30 + cost):
+	# 	final_dir = aStar(grid, head, tail)
+	# 	print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
+	# else:
+	# 	final_dir = food_dir
+	# 	print('>>>>>>>>>>>>>>>>> HUNGRY!')
 	
 	print('>>>>>>>>>>>>>>>>> final direction:', final_dir)
 	
