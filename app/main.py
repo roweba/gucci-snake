@@ -67,50 +67,50 @@ def make_grid(data):
 #return value of the grid space
 def set_grid(i,j,data):
 
-    snake_list = data['snakes']['data']
-    food_list = data['food']['data']
-    my_length = data['you']['length']
-    snake_heads = []
-    my_x = data['you']['body']['data'][0]['x']
-    my_y = data['you']['body']['data'][0]['y']
-    our_head = [my_x,my_y]
+	snake_list = data['snakes']['data']
+	food_list = data['food']['data']
+	my_length = data['you']['length']
+	snake_heads = []
+	my_x = data['you']['body']['data'][0]['x']
+	my_y = data['you']['body']['data'][0]['y']
+	our_head = [my_x,my_y]
 
-    #make a list of snake head coords as tuples of (x,y) points
-    for snake in range(0, len(snake_list)):
-        x = snake_list[snake]['body']['data'][0]['x']
-        y = snake_list[snake]['body']['data'][0]['y']
-        if [x,y] != our_head:
-            snake_heads.append([x,y])
+	#make a list of snake head coords as tuples of (x,y) points
+	for snake in range(0, len(snake_list)):
+		x = snake_list[snake]['body']['data'][0]['x']
+		y = snake_list[snake]['body']['data'][0]['y']
+		if [x,y] != our_head:
+			snake_heads.append([x,y])
 
-    #our head
-    if data['you']['body']['data'][0]['x'] == i and data['you']['body']['data'][0]['y'] == j:
-        return MY_HEAD
+	#our head
+	if data['you']['body']['data'][0]['x'] == i and data['you']['body']['data'][0]['y'] == j:
+		return MY_HEAD
 
-    #other snakes' body
-    for snake in range(0, len(snake_list)):
-        for snake_point in range(0,len(snake_list[snake]['body']['data'])):
-            x = snake_list[snake]['body']['data'][snake_point]['x']
-            y = snake_list[snake]['body']['data'][snake_point]['y']
-            if x == i and y == j:
-                return SNAKE_BODY
-    #halo
-    for snake in range(0, len(snake_list)):
-        #if point is adjacent to a point in the heads list mark the spot as -2 (halo)
-        if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
-            return HALO
-    #our tail
-    if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
-        return MY_TAIL
+	#other snakes' body
+	for snake in range(0, len(snake_list)):
+		for snake_point in range(0,len(snake_list[snake]['body']['data'])):
+			x = snake_list[snake]['body']['data'][snake_point]['x']
+			y = snake_list[snake]['body']['data'][snake_point]['y']
+			if x == i and y == j:
+				return SNAKE_BODY
+	#halo
+	for snake in range(0, len(snake_list)):
+		#if point is adjacent to a point in the heads list mark the spot as -2 (halo)
+		if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
+			return HALO
+	#our tail
+	if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
+		return MY_TAIL
 
-    #food
-    for food in range(0, len(food_list)):
-        x = food_list[food]['x']
-        y = food_list[food]['y']
-        if x == i and y == j:
-            return FOOD
+	#food
+	for food in range(0, len(food_list)):
+		x = food_list[food]['x']
+		y = food_list[food]['y']
+		if x == i and y == j:
+			return FOOD
 
-    #empty
-    return EMPTY
+	#empty
+	return EMPTY
 
 # chicken_wall function determines the closest wall
 # Input: head of snake
@@ -346,14 +346,24 @@ def move():
 	data = bottle.request.json
 	myID = data['you']['id']
 	grid, head = make_grid(data)
+	my_length = data['you']['length']
 
-	for i in range(len(grid)):
-		print grid[i]
+	# for i in range(len(grid)):
+	# 	print grid[i]
 
 	findBlocked(grid, head)
-	nextLoc = findFood(grid, head)
-	final_dir, cost = aStar(grid, head, nextLoc)
-	print('>>>>>>>>>>>>>>>>>', final_dir)
+	closestFood = findFood(grid, head)
+	food_dir, cost = aStar(grid, head, closestFood)
+	print('>>>>>>>>>>>>>>>>> food:', food_dir)
+
+	final_dir = ''
+
+	if(data['you']['health'] > 30 + cost):
+		final_dir = aStar(grid, head, data['you']['body']['data'][my_length-1])
+
+	else:
+		final_dir = food_dir
+
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
 
