@@ -80,11 +80,18 @@ def set_grid(i,j,data):
 
     #our head
     if data['you']['body']['data'][0]['x'] == i and data['you']['body']['data'][0]['y'] == j:
-        return 0
+        return MY_HEAD
 
     #our tail
     if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
-        return 2
+        return MY_TAIL
+
+    #food
+    for food in range(0, len(food_list)):
+        x = food_list[food]['x']
+        y = food_list[food]['y']
+        if x == i and y == j:
+            return FOOD
 
     #other snakes' body
     for snake in range(0, len(snake_list)):
@@ -92,25 +99,16 @@ def set_grid(i,j,data):
             x = snake_list[snake]['body']['data'][snake_point]['x']
             y = snake_list[snake]['body']['data'][snake_point]['y']
             if x == i and y == j:
-                return -1
+                return SNAKE_BODY
 
     #halo
     for snake in range(0, len(snake_list)):
         #if point is adjacent to a point in the heads list mark the spot as -2 (halo)
-        x = snake_list[snake]['body']['data'][0]['x']
-        y = snake_list[snake]['body']['data'][0]['y']
-        if [x+1,y] in snake_heads or [x-1,y] in snake_heads or [x,y+1] in snake_heads or [x,y-1] in snake_heads:
-            return -2
-
-    #food
-    for food in range(0, len(food_list)):
-        x = food_list[food]['x']
-        y = food_list[food]['y']
-        if x == i and y == j:
-            return 8
+        if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
+            return HALO
 
     #empty
-    return 1
+    return EMPTY
 
 #finds the closest bit of food to us just by looking at position on the board,
 #does not actually find which peice of food takes the least amount of moves
