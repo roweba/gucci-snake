@@ -108,7 +108,7 @@ def set_grid(i,j,data):
 		y = data['you']['body']['data'][0]['y']
 		our_head = [x,y]
 		if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
-			if [i+1,j] != our_head: and [i-1,j] != our_head and [i,j+1] != our_head and [i,j-1] != our_head:
+			if [i+1,j] != our_head and [i-1,j] != our_head and [i,j+1] != our_head and [i,j-1] != our_head:
 				return HALO
 
 	#empty
