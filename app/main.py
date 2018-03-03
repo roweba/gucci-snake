@@ -208,7 +208,7 @@ def aStar(board, head, dest):
 
 		#add safe tiles around the current tile to the list of successors
 		if (cur['xy'][0]+1 < len(board)):#make sure we are in bounds
-			print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
+			#print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
 			if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):#is the tile safe
 				succ.append([cur['xy'][0]+1, cur['xy'][1]])#if so add that tile to be examined
 		if (cur['xy'][0]-1 > 0):
@@ -227,6 +227,7 @@ def aStar(board, head, dest):
 				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
 				if(openn[index][1]['curCost'] <= succCost): continue
 			elif(node in [x['xy'] for x in close]):
+				print('-'*20, openn[index])
 				if(openn[index][1]['curCost'] <= succCost): continue
 				close[index]['curCost'] = succCost
 				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
