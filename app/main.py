@@ -368,8 +368,9 @@ def move():
 	final_dir = ''
 
 	if(data['you']['health'] > 30 + cost):
-		print('>>>>>>>>>>>>>>>>> I\'m not hungry')
 		final_dir = aStar(grid, head, tail)
+		print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
+
 
 	else:
 		final_dir = food_dir
