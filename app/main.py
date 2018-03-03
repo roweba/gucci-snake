@@ -225,7 +225,7 @@ def aStar(board, head, dest):
 			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
 				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
 				if(openn[index][1]['curCost'] <= succCost): continue
-			elif(node in [x[1]['xy'] for x in close]):
+			elif(node in [x['xy'] for x in close]):
 				if(openn[index][1]['curCost'] <= succCost): continue
 				close[index]['curCost'] = succCost
 				heapq.heappush(openn, (close[index]["estCost"] + close[index]["curCost"], close[index]))
