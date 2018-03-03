@@ -18,29 +18,29 @@ BLOCKED = -3
 
 @bottle.route('/static/<path:path>')
 def static(path):
-    return bottle.static_file(path, root='static/')
+	return bottle.static_file(path, root='static/')
 
 
 @bottle.post('/start')
 def start():
-    data = bottle.request.json
-    game_id = data['game_id']
-    board_width = data['width']
-    board_height = data['height']
+	data = bottle.request.json
+	game_id = data['game_id']
+	board_width = data['width']
+	board_height = data['height']
 
-    head_url = '%s://%s/static/head.jpg' % (
-        bottle.request.urlparts.scheme,
-        bottle.request.urlparts.netloc
-    )
+	head_url = '%s://%s/static/head.jpg' % (
+		bottle.request.urlparts.scheme,
+		bottle.request.urlparts.netloc
+	)
 
-    # TODO: Do things with data
+	# TODO: Do things with data
 
-    return {
-        'color': '#FF3399',
-        'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
-        'head_url': head_url,
-        'name': 'gucci snake'
-    }
+	return {
+		'color': '#FF3399',
+		'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
+		'head_url': head_url,
+		'name': 'gucci snake'
+	}
 
 
 """
@@ -116,17 +116,17 @@ def set_grid(i,j,data):
 #head is a list of (x,y) for our current position, grid is the play grid
 def findFood(grid, head):
 
-    closest = [0, 0] #does not matter just needs to be a list with two things in it
-    distance = 1000000000000 #big number so that the first food found will be less
+	closest = [0, 0] #does not matter just needs to be a list with two things in it
+	distance = 1000000000000 #big number so that the first food found will be less
 
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            if (grid[i][j] == 8):
-                curDist = h(head, [i, j])
-                if (curDist < distance):
-                    closest = [i, j]
-                    distance = curDist
-    return closest
+	for i in range(len(grid)):
+		for j in range(len(grid[i])):
+			if (grid[i][j] == 8):
+				curDist = h(head, [i, j])
+				if (curDist < distance):
+					closest = [i, j]
+					distance = curDist
+	return closest
 
 #a function to mark all tiles that are unreachable
 #Joss is working on this when procrastinating jk I think its done
@@ -181,49 +181,49 @@ def h(cur, dest):
 #find which direction we want to go to get to the given destination
 #http://mat.uab.cat/~alseda/MasterOpt/AStar-Algorithm.pdf
 def aStar(board, head, dest):
-    openn = [] #things to check
-    close = [] #things that have been checked
-    out = '' #the direction to go
-    succ = [] #the list of successors
-    cur = None
-    min_cost = 0
+	openn = [] #things to check
+	close = [] #things that have been checked
+	out = '' #the direction to go
+	succ = [] #the list of successors
+	cur = None
+	min_cost = 0
 	#node dictionary format:
 	#"xy": a tuple in the form (x, y) signifying the position of the node
 	#"estCost": the estimated cost to get to dest from here [h]
 	#"curCost": the cost taken to reach this node [g]
 	#"parent": the previous node in the path
 
-    headNode = {"xy": head, "estCost": h(head, dest), "curCost": 0, "parent": None}
-    heapq.heappush(openn, (headNode["estCost"] + headNode["curCost"], headNode))#push where we are to start off
-    while(openn):#while we have things to check
-        cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
+	headNode = {"xy": head, "estCost": h(head, dest), "curCost": 0, "parent": None}
+	heapq.heappush(openn, (headNode["estCost"] + headNode["curCost"], headNode))#push where we are to start off
+	while(openn):#while we have things to check
+		cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
 
 		#if we find our destination return our initial direction
-        if (cur['xy'] == dest):
-            break
+		if (cur['xy'] == dest):
+			break
 
 		#add safe tiles around the current tile to the list of successors
-        if (cur['xy'][0]+1 < len(board)):#make sure we are in bounds
+		if (cur['xy'][0]+1 < len(board)):#make sure we are in bounds
 			#print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
 			if (board[cur['xy'][0]+1][cur['xy'][1]] > 0):#is the tile safe
 				succ.append([cur['xy'][0]+1, cur['xy'][1]])#if so add that tile to be examined
-        if (cur['xy'][0]-1 > 0):
+		if (cur['xy'][0]-1 > 0):
 			if (board[cur['xy'][0]-1][cur['xy'][1]] > 0):
 				succ.append([cur['xy'][0]-1, cur['xy'][1]])
 
-        if (cur['xy'][1]+1 < len(board[0])):
+		if (cur['xy'][1]+1 < len(board[0])):
 			#print('*'*64, 'index:', cur['xy'][0]+1, 'total:', len(board))
 			try:
 				if (board[cur['xy'][0]][cur['xy'][1]+1] > 0):
 					succ.append([cur['xy'][0], cur['xy'][1]+1])
 			except IndexError:
 				print 'CAUGHT THE FIRST ERROR: ', len(board[0]), cur['xy'][1]+1
-        if (cur['xy'][1]-1 > 0):
+		if (cur['xy'][1]-1 > 0):
 
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
 
-        for node in succ:
+		for node in succ:
 			succCost = 1 + cur["curCost"]
 			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
 				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
@@ -243,59 +243,59 @@ def aStar(board, head, dest):
 				openDictionary = {"xy": node, "estCost": h(node, dest), "curCost": succCost, "parent": cur}
 				heapq.heappush(openn, (openDictionary["estCost"] + openDictionary["curCost"], openDictionary))
 
-        close.append(cur)
+		close.append(cur)
 
 	#backtracking to find the next tile
 	if(cur['xy'] == dest):
 		print 'Found the destination!!!'
 		prevCur = cur
-        while(cur['parent'] is not None):
-            prevCur = cur
-            cur = cur['parent']
-            min_cost += 1
+		while(cur['parent'] is not None):
+			prevCur = cur
+			cur = cur['parent']
+			min_cost += 1
 		#set our direction, Joss has a feeling this will need debugging, talk to Joss about it
-        if (prevCur['xy'][0] == head[0]+1 and prevCur['xy'][1] == head[1]):
+		if (prevCur['xy'][0] == head[0]+1 and prevCur['xy'][1] == head[1]):
 			out = 'right'
-        elif (prevCur['xy'][0] == head[0]-1 and prevCur['xy'][1] == head[1]):
+		elif (prevCur['xy'][0] == head[0]-1 and prevCur['xy'][1] == head[1]):
 			out = 'left'
-        elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]+1):
+		elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]+1):
 			out = 'down'
-        elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]-1):
+		elif (prevCur['xy'][0] == head[0] and prevCur['xy'][1] == head[1]-1):
 			out = 'up'
-        return out, min_cost
-    else:
+		return out, min_cost
+	else:
 		raise Exception('Path not found')
 
 #def safemove():
-    #if there are no openings to food, stall until there are
+	#if there are no openings to food, stall until there are
 
 def closest_wall(data,grid,head,tail):
-    walls = [] #list walls as [x,y points]
-    board_width = data['width']
-    board_length = data['length']
-    closest_wall = [] #[x,y] point of the closest wall
-    min_cost = 100000
+	walls = [] #list walls as [x,y points]
+	board_width = data['width']
+	board_length = data['length']
+	closest_wall = [] #[x,y] point of the closest wall
+	min_cost = 100000
 
-    #make a list of points that are the grid edges
-    for i in range(board_width-1):
-        walls.append([i,0])
-    for j in range(board_length-1):
-        walls.append([0,j])
-    for k in range(board_width-1):
-        walls.append([board_width-1,k])
-    for x in range(board_length-1):
-        walls.append([board_length-1,x])
+	#make a list of points that are the grid edges
+	for i in range(board_width-1):
+		walls.append([i,0])
+	for j in range(board_length-1):
+		walls.append([0,j])
+	for k in range(board_width-1):
+		walls.append([board_width-1,k])
+	for x in range(board_length-1):
+		walls.append([board_length-1,x])
 
-    for index in range(walls):
-        curr_cost = aStar(grid, head, walls[index])[1]
-        if curr_cost < min_cost:
-            min_cost = curr_cost
-            closest_wall = walls[index]
+	for index in range(walls):
+		curr_cost = aStar(grid, head, walls[index])[1]
+		if curr_cost < min_cost:
+			min_cost = curr_cost
+			closest_wall = walls[index]
 
-    closest_food = findFood(grid, head)
-    aStar(grid, head, closest_food)
-    while data['you']['health'] + closest_food > 30:
-        aStar(grid,head,tail)
+	closest_food = findFood(grid, head)
+	aStar(grid, head, closest_food)
+	while data['you']['health'] + closest_food > 30:
+		aStar(grid,head,tail)
 
 
 #def final_move():
@@ -305,12 +305,16 @@ def move():
 	data = bottle.request.json
 	myID = data['you']['id']
 	grid, head = make_grid(data)
+
+	for i in range(len(grid)):
+		print grid[i]
+
 	findBlocked(grid, head)
 	nextLoc = findFood(grid, head)
-	final_dir = aStar(grid, head, nextLoc)
+	final_dir, cost = aStar(grid, head, nextLoc)
 	print('>>>>>>>>>>>>>>>>>', final_dir)
-    # TODO: Do things with data
-    #directions = ['up', 'down', 'left', 'right']
+	# TODO: Do things with data
+	#directions = ['up', 'down', 'left', 'right']
 
 	return {
 		#'move': random.choice(directions),
@@ -322,4 +326,4 @@ def move():
 # Expose WSGI app (so gunicorn can find it)
 application = bottle.default_app()
 if __name__ == '__main__':
-    bottle.run(application, host=os.getenv('IP', '0.0.0.0'), port=os.getenv('PORT', '8080'))
+	bottle.run(application, host=os.getenv('IP', '0.0.0.0'), port=os.getenv('PORT', '8080'))
