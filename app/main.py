@@ -274,6 +274,8 @@ def aStar(board, head, dest):
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
 		
+		print("length succ")
+		print(len(succ))
 		forCheck = 0
 		for node in succ:
 			forCheck+= 1
