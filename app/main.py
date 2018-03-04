@@ -246,6 +246,11 @@ def aStar(board, head, dest):
 
 	foreverCheck = 0
 	forCheck = 0
+	
+	print ("GOING FROM")
+	print (head)
+	print ("TO")
+	print (tail)
 
 	#node dictionary format:
 	#"xy": a tuple in the form (x, y) signifying the position of the node
