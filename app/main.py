@@ -229,6 +229,10 @@ def aStar(board, head, dest):
 	succ = [] #the list of successors
 	cur = None
 	min_cost = 0
+	
+	foreverCheck = 0
+	forCheck = 0
+	
 	#node dictionary format:
 	#"xy": a tuple in the form (x, y) signifying the position of the node
 	#"estCost": the estimated cost to get to dest from here [h]
@@ -239,7 +243,11 @@ def aStar(board, head, dest):
 	heapq.heappush(openn, (headNode["estCost"] + headNode["curCost"], headNode))#push where we are to start off
 	while(openn):#while we have things to check
 		cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
-
+		
+		foreverCheck += 1
+		if (foreverCheck > 1000):
+			print("!!!!!!!!!!!YIKES @ WHILE1")
+		
 		#if we find our destination return our initial direction
 		if (cur['xy'] == dest):
 			break
@@ -264,8 +272,13 @@ def aStar(board, head, dest):
 
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
-
+		
+		forCheck = 0
 		for node in succ:
+			forCheck+= 1
+			if (forCheck > 4):
+				print("!!!!!!!!!!!!!!!YIKES@4!")
+				print(forCheck)
 			succCost = 1 + cur["curCost"]
 			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
 				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
@@ -291,7 +304,12 @@ def aStar(board, head, dest):
 	if(cur['xy'] == dest):
 		print 'Found the destination!!!'
 		prevCur = cur
+		foreverCheck = 0
 		while(cur['parent'] is not None):
+			foreverCheck += 1
+			if (foreverCheck > 1000):
+				print("YIKES@TRACEBACK")
+				print(foreverCheck)
 			prevCur = cur
 			cur = cur['parent']
 			min_cost += 1
