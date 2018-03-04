@@ -245,7 +245,7 @@ def aStar(board, head, dest):
 		cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
 
 		succ = []
-		
+
 		foreverCheck += 1
 		if (foreverCheck > 1000):
 			print("!!!!!!!!!!!YIKES @ WHILE1")
@@ -275,16 +275,8 @@ def aStar(board, head, dest):
 
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
-		
-		print("length succ")
-		print(len(succ))
 
-		forCheck = 0
 		for node in succ:
-			forCheck+= 1
-			if (forCheck > 4):
-				print("!!!!!!!!!!!!!!!YIKES@4!")
-				print(forCheck)
 			succCost = 1 + cur["curCost"]
 			if(node in [x[1]['xy'] for x in openn]): #FIXME this might be broken
 				index = [x[1]['xy'] for x in openn].index(node) #This line might also be broken
@@ -383,30 +375,17 @@ def move():
 	#     print grid[i]
 
 	findBlocked(grid, head)
-	print("--- %s @ FINDBLOCKED ---" % (time.time() - start_time))
 	closestFood = findFood(grid, head)
-	print("--- %s @ FINDFOOD ---" % (time.time() - start_time))
 	final_dir, dist = aStar(grid,head,closestFood)
-	print("--- %s @ A* ---" % (time.time() - start_time))
 
-	# while(1):
-	#     try:
-	#         food_dir, cost = aStar(grid, head, closestFood)
-	#     except Exception:
-	#         grid[closestFood[0]][closestFood[1]] = -3
-	#     else:
-	#         break
+	final_dir = ''
 
-	# print('>>>>>>>>>>>>>>>>> food:', food_dir)
-
-	# final_dir = ''
-
-	# if(data['you']['health'] > 30 + cost):
-	#     final_dir = aStar(grid, head, tail)
-	#     print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
-	# else:
-	#     final_dir = food_dir
-	#     print('>>>>>>>>>>>>>>>>> HUNGRY!')
+	if(data['you']['health'] > 30 + cost):
+	    final_dir, other = aStar(grid, head, tail)
+	    print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
+	else:
+	    final_dir = food_dir
+	    print('>>>>>>>>>>>>>>>>> HUNGRY!')
 
 	print('>>>>>>>>>>>>>>>>> final direction:', final_dir)
 
