@@ -369,7 +369,7 @@ def move():
 	grid, head = make_grid(data)
 	print("--- %s @ MAKE_GRID ---" % (time.time() - start_time))
 	my_length = data['you']['length']
-	tail = [[data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']]]
+	tail = [data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']]
 	print '...............................', tail
 
 	# for i in range(len(grid)):
