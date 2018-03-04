@@ -229,10 +229,10 @@ def aStar(board, head, dest):
 	succ = [] #the list of successors
 	cur = None
 	min_cost = 0
-	
+
 	foreverCheck = 0
 	forCheck = 0
-	
+
 	#node dictionary format:
 	#"xy": a tuple in the form (x, y) signifying the position of the node
 	#"estCost": the estimated cost to get to dest from here [h]
@@ -243,11 +243,11 @@ def aStar(board, head, dest):
 	heapq.heappush(openn, (headNode["estCost"] + headNode["curCost"], headNode))#push where we are to start off
 	while(openn):#while we have things to check
 		cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
-		
+
 		foreverCheck += 1
 		if (foreverCheck > 1000):
 			print("!!!!!!!!!!!YIKES @ WHILE1")
-		
+
 		#if we find our destination return our initial direction
 		if (cur['xy'] == dest):
 			break
@@ -272,7 +272,7 @@ def aStar(board, head, dest):
 
 			if (board[cur['xy'][0]][cur['xy'][1]-1] > 0):
 				succ.append([cur['xy'][0], cur['xy'][1]-1])
-		
+
 		forCheck = 0
 		for node in succ:
 			forCheck+= 1
@@ -406,24 +406,10 @@ def move():
 	# TODO: Do things with data
 	#directions = ['up', 'down', 'left', 'right']
 
-	taunts = [
-	'Gucci Snake, ooh, yeah, Lil Pump, yeah, Gucci Snake, ooh',
-	'Gucci snake, Gucci snake, Gucci snake, Gucci snake',
-	'Spend ten racks on new scales',
-	'My snake love to eat mice, ooh',
-	'I bought a snake, I forgot her name',
-	'I can\'t buy a snake no wedding ring',
-	'Rather go and buy Balmains',
-	'Gucci snake, Gucci snake, Gucci snake (Gucci snake!)'
-	]
-
-	v = data['turn'] / 10
-	taunt = taunts[v % 8]
-
 	return {
 		#'move': random.choice(directions),
 		'move': final_dir,
-		'taunt': taunt
+		'taunt': 'skrrt'
 	}
 
 
