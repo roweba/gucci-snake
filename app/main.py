@@ -10,7 +10,7 @@ import time
 # see todo.txt for full explanation of the following constants:
 MY_HEAD = 0
 EMPTY = 1
-MY_TAIL = 2
+MY_TAIL = -4
 FOOD = 8
 SNAKE_BODY = -1
 HALO = -2
@@ -178,7 +178,7 @@ def findTail(grid, head):
 
 	for i in range(len(grid)):
 		for j in range(len(grid[i])):
-			if (grid[i][j] == 2):
+			if (grid[i][j] == MY_TAIL):
 				curDist = h(head, [i, j])
 				if (curDist < distance):
 					closest = [i, j]
