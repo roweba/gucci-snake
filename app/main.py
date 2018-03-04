@@ -83,6 +83,10 @@ def set_grid(i,j,data):
 		if [x,y] != our_head:
 			snake_heads.append([x,y])
 
+	#our tail
+	if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
+		return MY_TAIL
+
 	#our head
 	if data['you']['body']['data'][0]['x'] == i and data['you']['body']['data'][0]['y'] == j:
 		return MY_HEAD
@@ -99,9 +103,6 @@ def set_grid(i,j,data):
 		#if point is adjacent to a point in the heads list mark the spot as -2 (halo)
 		if [i+1,j] in snake_heads or [i-1,j] in snake_heads or [i,j+1] in snake_heads or [i,j-1] in snake_heads:
 			return HALO
-	#our tail
-	if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
-		return MY_TAIL
 
 	#food
 	for food in range(0, len(food_list)):
@@ -246,7 +247,7 @@ def aStar(board, head, dest):
 
 	foreverCheck = 0
 	forCheck = 0
-	
+
 	print ("GOING FROM")
 	print (head)
 	print ("TO")
