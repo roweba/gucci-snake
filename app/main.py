@@ -250,7 +250,7 @@ def aStar(board, head, dest):
 	print ("GOING FROM")
 	print (head)
 	print ("TO")
-	print (tail)
+	print (dest)
 
 	#node dictionary format:
 	#"xy": a tuple in the form (x, y) signifying the position of the node
