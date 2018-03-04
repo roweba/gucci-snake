@@ -391,8 +391,8 @@ def move():
 	my_length = data['you']['length']
 	tail = findTail(grid,head)
 
-	for i in range(len(grid)):
-	     print grid[i]
+	# for i in range(len(grid)):
+	#      print grid[i]
 
 	findBlocked(grid, head)
 	closestFood = findFood(grid, head)
