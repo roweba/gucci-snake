@@ -83,13 +83,13 @@ def set_grid(i,j,data):
 		if [x,y] != our_head:
 			snake_heads.append([x,y])
 
-	#our tail
-	if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
-		return MY_TAIL
-
 	#our head
 	if data['you']['body']['data'][0]['x'] == i and data['you']['body']['data'][0]['y'] == j:
 		return MY_HEAD
+
+	#our tail
+	if data['you']['body']['data'][my_length-1]['x'] == i and data['you']['body']['data'][my_length-1]['y'] == j:
+		return MY_TAIL
 
 	#other snakes' body
 	for snake in range(0, len(snake_list)):
