@@ -244,6 +244,8 @@ def aStar(board, head, dest):
 	while(openn):#while we have things to check
 		cur = heapq.heappop(openn)[1]#pop the best thing from the priority queue
 
+		succ = []
+		
 		foreverCheck += 1
 		if (foreverCheck > 1000):
 			print("!!!!!!!!!!!YIKES @ WHILE1")
