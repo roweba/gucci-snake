@@ -170,6 +170,20 @@ def findFood(grid, head):
 					distance = curDist
 	return closest
 
+def findTail(grid, head):
+
+	closest = [0, 0] #does not matter just needs to be a list with two things in it
+	distance = 1000000000000 #big number so that the first food found will be less
+
+	for i in range(len(grid)):
+		for j in range(len(grid[i])):
+			if (grid[i][j] == 2):
+				curDist = h(head, [i, j])
+				if (curDist < distance):
+					closest = [i, j]
+					distance = curDist
+	return closest
+
 #a function to mark all tiles that are unreachable
 #Joss is working on this when procrastinating jk I think its done
 def findBlocked(grid, head):
@@ -369,7 +383,7 @@ def move():
 	grid, head = make_grid(data)
 	print("--- %s @ MAKE_GRID ---" % (time.time() - start_time))
 	my_length = data['you']['length']
-	tail = [[data['you']['body']['data'][my_length-1]['x'], data['you']['body']['data'][my_length-1]['y']]]
+	tail = findTail(grid,head)
 
 	# for i in range(len(grid)):
 	#     print grid[i]
