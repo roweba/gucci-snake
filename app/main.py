@@ -389,18 +389,22 @@ def move():
 	grid, head = make_grid(data)
 	print("--- %s @ MAKE_GRID ---" % (time.time() - start_time))
 	my_length = data['you']['length']
-	tail = findTail(grid,head)
 
 	# for i in range(len(grid)):
 	#      print grid[i]
 
 	findBlocked(grid, head)
+	tail = findTail(grid,head)
+
 	closestFood = findFood(grid, head)
 	final_dir, dist = aStar(grid,head,closestFood)
 
 	if(data['you']['health'] > 30 + dist and my_length > 3):
-	    final_dir, other = aStar(grid, head, tail)
-	    print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
+		try:
+	    	final_dir, other = aStar(grid, head, tail)
+	    	print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
+	    except Exception:
+	    	pass
 	else:
 	    print('>>>>>>>>>>>>>>>>> HUNGRY!')
 
