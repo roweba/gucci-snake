@@ -400,7 +400,7 @@ def move():
 
 	final_dir = ''
 
-	if(data['you']['health'] > 30 + dist):
+	if(data['you']['health'] > 30 + dist and my_length > 3):
 	    final_dir, other = aStar(grid, head, tail)
 	    print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
 	else:
