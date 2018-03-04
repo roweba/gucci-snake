@@ -404,7 +404,6 @@ def move():
 	    final_dir, other = aStar(grid, head, tail)
 	    print('>>>>>>>>>>>>>>>>> I\'m not hungry, I\'m going: ', final_dir)
 	else:
-	    final_dir = food_dir
 	    print('>>>>>>>>>>>>>>>>> HUNGRY!')
 
 	print('>>>>>>>>>>>>>>>>> final direction:', final_dir)
